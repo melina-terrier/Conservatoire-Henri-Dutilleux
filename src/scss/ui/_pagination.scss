@@ -1,0 +1,26 @@
+@import '../partials/functions';
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: rem(48);
+
+  .nav-links {
+    text-transform: uppercase;
+
+    .page-numbers {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--darkColor);
+      padding: rem(10);
+      min-width: rem(45);
+      height: rem(45);
+      text-align: center;
+    }
+
+    .current {
+      border: 1px solid var(--gray-200);
+      border-radius: 50%;
+    }
+  }
+}

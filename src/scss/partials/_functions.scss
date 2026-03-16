@@ -1,0 +1,10 @@
+@function rem($val) {
+  @return ($val / 16) * 1rem;
+}
+
+// Usage : fluid(18, 24) → clamp(1.125rem, calc(...), 1.5rem)
+@function fluid($min-px, $max-px, $bp-min: 640, $bp-max: 1296) {
+  $diff: $max-px - $min-px;
+  $range: $bp-max - $bp-min;
+  @return clamp(#{rem($min-px)}, calc(#{rem($min-px)} + #{$diff} * ((100vw - #{$bp-min}px) / #{$range})), #{rem($max-px)});
+}

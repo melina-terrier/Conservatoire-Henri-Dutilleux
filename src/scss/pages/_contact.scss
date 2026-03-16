@@ -1,0 +1,105 @@
+@import '../partials/functions';
+
+.contactInfos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: rem(48);
+  margin: rem(48) 0;
+  padding: rem(40);
+  background-color: var(--gray-100);
+
+  @media (max-width: 639px) {
+    grid-template-columns: 1fr;
+    gap: rem(32);
+    padding: rem(24);
+  }
+
+  &__block {
+    h3 {
+      margin-top: 0;
+      font-family: "Space Mono", courier, monospace;
+      font-weight: normal;
+      font-size: fluid(11, 13);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-300);
+      margin-bottom: rem(12);
+    }
+
+    address {
+      font-style: normal;
+      line-height: 1.8;
+
+      a {
+        color: var(--darkColor);
+        text-decoration: none;
+        border-bottom: 1px solid var(--gray-300);
+        transition: border-color .3s;
+
+        &:hover {
+          border-bottom-color: var(--darkColor);
+        }
+      }
+    }
+
+    p {
+      margin: 0;
+      line-height: 1.8;
+    }
+  }
+}
+
+.sitesList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: rem(32) 0 rem(48);
+
+  @media (max-width: 639px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__item {
+    padding: rem(24) 0;
+    border-bottom: 1px solid var(--gray-200);
+
+    &:nth-child(odd) {
+      padding-right: rem(48);
+      border-right: 1px solid var(--gray-200);
+    }
+
+    &:nth-child(even) {
+      padding-left: rem(48);
+    }
+
+    @media (max-width: 639px) {
+      &:nth-child(odd),
+      &:nth-child(even) {
+        padding-left: 0;
+        padding-right: 0;
+        border-right: none;
+      }
+    }
+
+    h3 {
+      margin: 0 0 rem(8);
+      font-family: "Space Mono", courier, monospace;
+      font-weight: normal;
+      font-size: fluid(13, 15);
+    }
+
+    address {
+      font-style: normal;
+      color: var(--gray-300);
+      font-size: fluid(11, 13);
+      margin-bottom: rem(4);
+    }
+
+    p {
+      margin: rem(4) 0 0;
+      font-size: fluid(11, 13);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--vermillion);
+    }
+  }
+}

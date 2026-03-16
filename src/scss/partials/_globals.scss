@@ -1,0 +1,51 @@
+@import 'functions';
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--vermillion);
+}
+
+body {
+  font-family: "Mulish", Helvetica, sans-serif;
+  font-size: fluid(13, 15);
+  line-height: 1.6;
+  background-color: var(--lightColor);
+  position: relative;
+}
+
+.noscroll,
+.noscroll body {
+  overflow: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.sr-only,
+.screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.admin-bar {
+  margin-top: 32px; // WP admin bar height exacte
+
+  .header {
+    top: 32px;
+  }
+}

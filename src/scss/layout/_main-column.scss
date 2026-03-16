@@ -1,0 +1,41 @@
+@import '../partials/functions';
+
+.main-column {
+  margin: rem(96) 0;
+  padding-left: rem(24);
+  padding-right: rem(24);
+
+  @media (min-width: 640px) {
+    box-sizing: content-box;
+    max-width: calc(calc((1248px - 48px * (12 - 1)) / 12) * 6 + 48px * (6 - 1));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--darkColor);
+    border-bottom: 1px solid var(--gray-300);
+    transition: all .3s;
+
+    &:hover {
+      border-bottom-color: var(--darkColor);
+    }
+  }
+
+  figure {
+    margin: 0;
+
+    @media (min-width: 960px) {
+      margin-left: calc(0px - (calc((1248px - 48px * (12 - 1)) / 12) + 48px));
+      margin-right: calc(0px - (calc((1248px - 48px * (12 - 1)) / 12) + 48px));
+      margin-top: rem(48);
+      margin-bottom: rem(48);
+    }
+  }
+
+  figcaption {
+    font-size: fluid(11, 13);
+    color: var(--gray-300);
+  }
+}

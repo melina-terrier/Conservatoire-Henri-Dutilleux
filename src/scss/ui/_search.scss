@@ -1,0 +1,95 @@
+@import '../partials/functions';
+
+.searchForm {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: white;
+  transform: translateY(-80px);
+  transition: all 0.4s ease-in-out;
+
+  @media (min-width: 960px) {
+    left: rem(100);
+  }
+
+  &.-open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &__close,
+  &__input,
+  &__submit {
+    appearance: none;
+    background: inherit;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: rem(80);
+    height: rem(80);
+
+    svg {
+      width: rem(24);
+      height: rem(24);
+    }
+  }
+
+  &__submit {
+    position: absolute;
+    top: 0;
+    right: rem(50);
+    width: rem(80);
+    height: rem(80);
+
+    @media (min-width: 960px) {
+      right: rem(100);
+    }
+
+    svg {
+      width: rem(24);
+      height: rem(24);
+    }
+  }
+
+  &__form {
+    height: 100%;
+  }
+
+  &__input {
+    font-size: fluid(18, 24);
+    height: 100%;
+    width: 80%;
+    padding: 0 rem(40);
+  }
+}
+
+.searchFormPage {
+  &__input {
+    appearance: none;
+    background: inherit;
+    border: 1px solid var(--gray-200);
+    font-size: fluid(18, 24);
+    padding: rem(24);
+    width: 100%;
+    margin-bottom: rem(24);
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

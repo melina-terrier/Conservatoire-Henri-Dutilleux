@@ -1,0 +1,121 @@
+@import '../partials/functions';
+
+.btn {
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding: rem(16) rem(24);
+  border: 1px solid var(--vermillion);
+  color: var(--darkColor);
+  font-size: fluid(11, 13);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+
+  @media (min-width: 640px) {
+    padding: rem(24) rem(32);
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 0 8px var(--vermillion);
+  }
+
+  &.-outlined {
+    border-color: var(--lightColor);
+    color: var(--lightColor);
+
+    &:hover {
+      box-shadow: inset 0 0 0 8px var(--lightColor);
+    }
+
+    .btn__arrow path {
+      fill: var(--lightColor);
+    }
+  }
+
+  &.-dark {
+    border-color: var(--darkColor);
+    background-color: var(--darkColor);
+    color: var(--lightColor);
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  &__arrow {
+    margin-right: rem(16);
+  }
+}
+
+// Lien "plus d'infos"
+.morelink {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--darkColor);
+  position: relative;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--darkColor);
+  }
+
+  &::before {
+    transform: scaleX(1);
+    transform-origin: right;
+    transition: all .3s ease-in-out;
+  }
+
+  &::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all .3s ease-in-out .1s;
+  }
+
+  &:hover::before {
+    transform: scaleX(0);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+// Téléchargement de fichiers
+.wp-block-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: rem(10);
+  padding-top: rem(12);
+  padding-bottom: rem(12);
+  border-bottom: 1px solid var(--gray-200);
+  font-size: fluid(11, 13);
+}
+
+.wp-block-file a:first-child {
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: var(--darkColor);
+  border: none;
+}
+
+.wp-block-file__button {
+  text-decoration: none;
+  background-color: var(--darkColor);
+  color: var(--lightColor) !important;
+  padding: rem(4) rem(20);
+  border-radius: rem(40);
+}

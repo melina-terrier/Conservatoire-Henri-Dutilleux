@@ -1,0 +1,28 @@
+@import '../partials/functions';
+
+.searchResult {
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--gray-200);
+    padding-bottom: rem(48);
+    margin-bottom: rem(48);
+  }
+
+  &__type {
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: var(--gray-300);
+    font-size: fluid(11, 13);
+  }
+
+  &__titleLink {
+    text-decoration: none;
+    color: var(--darkColor);
+    border: none !important;
+  }
+
+  &__link {
+    border: none !important;
+  }
+}

@@ -1,0 +1,45 @@
+/*
+Theme Name: Conservatoire
+Description: Thème du Conservatoire de Belfort
+Author: Mélina TERRIER
+*/
+
+// ─── Vendor ────────────────────────────────────────────────────────────────
+@import 'vendor/normalize';
+@import 'vendor/flickity';
+
+// ─── Partials ──────────────────────────────────────────────────────────────
+@import 'partials/functions';
+@import 'partials/colors';
+@import 'partials/grid-vars';
+@import 'partials/fonts';
+@import 'partials/globals';
+
+// ─── Layout ────────────────────────────────────────────────────────────────
+@import 'layout/grid';
+@import 'layout/main-column';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/menu';
+
+// ─── UI ────────────────────────────────────────────────────────────────────
+@import 'ui/btn';
+@import 'ui/form';
+@import 'ui/pagination';
+@import 'ui/search';
+
+// ─── Components ────────────────────────────────────────────────────────────
+@import 'components/hero';
+@import 'components/section';
+@import 'components/card';
+@import 'components/crd';
+@import 'components/carousel';
+@import 'components/duotone';
+@import 'components/single';
+
+// ─── Pages ─────────────────────────────────────────────────────────────────
+@import 'pages/contact';
+@import 'pages/enseignements';
+@import 'pages/legal';
+@import 'pages/searchResult';
+@import 'pages/sitemap';

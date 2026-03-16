@@ -1,0 +1,81 @@
+@import '../partials/functions';
+
+// CF7 form
+.wpcf7 {
+  background-color: var(--gray-100);
+  padding-top: rem(50);
+  padding-bottom: rem(50);
+
+  input,
+  select {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: rem(10) 0;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  textarea {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: rem(10) 0;
+    width: 100%;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.6;
+
+    &:focus {
+      outline: 0;
+      border-bottom-color: var(--darkColor);
+    }
+  }
+
+  label {
+    color: var(--gray-300);
+    margin-top: rem(40);
+    display: block;
+  }
+
+  ::-webkit-datetime-edit {
+    color: var(--gray-300);
+  }
+
+  ::-webkit-calendar-picker-indicator {
+    opacity: 0.2;
+  }
+
+  button,
+  input[type="submit"] {
+    margin-top: rem(40);
+  }
+
+  input[type="submit"] {
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: rem(16) rem(40);
+    border: 1px solid var(--darkColor);
+    color: var(--lightColor);
+    font-size: fluid(11, 13);
+    background: var(--darkColor);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background: transparent;
+      color: var(--darkColor);
+    }
+  }
+}

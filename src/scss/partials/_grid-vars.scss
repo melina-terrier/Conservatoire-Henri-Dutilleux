@@ -1,0 +1,23 @@
+:root {
+  --offset: 24px;
+  --max_width: 1248px;
+  --columns: 4;
+  --gutter: 48px;
+  --color: hsla(0, 100%, 50%, 0.15);
+
+  // Helper variables
+  --repeating-width: calc(100% / var(--columns));
+  --column-width: calc((100% / var(--columns)) - var(--gutter));
+  --background-width: calc(100% + var(--gutter));
+  --background-columns: repeating-linear-gradient(
+    to right,
+    var(--color),
+    var(--color) var(--column-width),
+    transparent var(--column-width),
+    transparent var(--repeating-width)
+  );
+
+  @media (min-width: 960px) {
+    --columns: 12;
+  }
+}

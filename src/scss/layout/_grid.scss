@@ -1,0 +1,43 @@
+@import '../partials/functions';
+
+.grid {
+  margin-top: rem(96);
+  margin-bottom: rem(96);
+  padding-right: rem(24);
+  padding-left: rem(24);
+
+  @media (min-width: 960px) {
+    display: grid;
+    grid-gap: rem(48);
+    grid: auto-flow dense / repeat(12, minmax(0, calc((1248px - 48px * (12 - 1)) / 12)));
+    justify-content: center;
+
+    &.-withHeader::before {
+      content: "";
+      grid-column: 1 / span 2;
+      background-color: var(--darkColor);
+      height: 1px;
+      margin-top: rem(54);
+    }
+  }
+
+  &.-withoutMargin {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &.-fullHeight {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    grid-row-gap: rem(48);
+
+    @media (min-width: 640px) {
+      grid-template-rows: 3fr 1fr;
+    }
+  }
+
+  &.-inverse::before {
+    background-color: var(--lightColor);
+  }
+}

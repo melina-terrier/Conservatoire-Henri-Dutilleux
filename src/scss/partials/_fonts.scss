@@ -1,0 +1,49 @@
+@import 'functions';
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,700;1,300;1,700&family=Space+Mono:ital@0;1&display=swap");
+
+@font-face {
+  font-family: "icomoon";
+  src: url("src/fonts/icomoon.ttf?rqvi51") format("truetype"),
+       url("src/fonts/icomoon.woff?rqvi51") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon"],
+[class*=" icon"] {
+  font-family: "icomoon" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconYoutube:before  { content: "\e903"; }
+.iconInstagram:before { content: "\e900"; }
+.iconTwitter:before  { content: "\e901"; }
+.iconFacebook:before { content: "\e902"; }
+
+h1,
+h2 {
+  font-family: "Space Mono", courier, monospace;
+  font-weight: normal;
+}
+
+h1, .h1 {
+  font-size: fluid(36, 64);
+  line-height: 1.1;
+}
+
+h2, .h2 {
+  font-size: fluid(28, 32);
+  line-height: 1.1;
+}
+
+h3, .h3 {
+  font-size: fluid(18, 24);
+  line-height: 1.4;
+}

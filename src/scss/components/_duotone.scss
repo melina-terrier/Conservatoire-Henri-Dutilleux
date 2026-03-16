@@ -1,0 +1,35 @@
+.duotone {
+  background-color: var(--vermillion);
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+
+  img {
+    filter: grayscale(100%);
+    flex: 1 0 100%;
+    mix-blend-mode: var(--bg-blend);
+    object-fit: cover;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &.single__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--violet);
+    mix-blend-mode: var(--fg-blend);
+    transition: all 0.2s ease-in-out;
+    z-index: 1;
+  }
+}

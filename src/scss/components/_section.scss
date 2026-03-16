@@ -1,0 +1,66 @@
+@import '../partials/functions';
+
+// Section de la home
+.section {
+  position: relative;
+
+  &.-bg {
+    padding-top: rem(160);
+    padding-bottom: rem(160);
+  }
+}
+
+.section__header {
+  @media (min-width: 960px) {
+    grid-column: 3 / span 6;
+
+    &.-full {
+      grid-column: 3 / span 10;
+    }
+  }
+
+  &.-inverse {
+    color: var(--lightColor);
+  }
+}
+
+.section__title {
+  font-size: fluid(36, 64);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.section__intro {
+  font-size: fluid(22, 28);
+  line-height: 1.5;
+}
+
+.section__link {
+  @media (min-width: 960px) {
+    grid-column: 9 / span 4;
+    justify-self: end;
+    align-self: flex-start;
+  }
+}
+
+.section__img {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  object-fit: cover;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: var(--violet);
+    opacity: 0.5;
+  }
+}

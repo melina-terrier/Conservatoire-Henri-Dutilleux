@@ -1,0 +1,28 @@
+# Environnement
+.env
+
+# macOS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Sass compilé (généré depuis src/scss/)
+Conservatoire/style.css
+Conservatoire/style.css.map
+
+# Docker volumes (données locales)
+db_data/
+wp_data/
+
+# Divers
+*.log
+*.cache
+*.tmp
+*.bak
+vendor/
+_CC1.rtf
+html/
