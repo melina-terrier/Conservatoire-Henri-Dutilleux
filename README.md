@@ -10,7 +10,6 @@ Thème WordPress développé pour le Conservatoire de Belfort dans le cadre d'un
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop) installé et démarré
 - [Node.js](https://nodejs.org/) installé (pour compiler le SCSS)
-- Un fichier `.env` à la racine avec la variable `GOOGLE_MAPS_API_KEY` (voir `.env.example`)
 
 ### 1. Démarrer WordPress avec Docker
 
