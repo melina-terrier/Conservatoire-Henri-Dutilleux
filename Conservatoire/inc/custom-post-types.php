@@ -6,17 +6,17 @@
 function crdtheme_register_cpt_agenda() {
 
 	$labels = array(
-		'name'               => __( 'Agenda', 'crdtheme' ),
-		'singular_name'      => __( 'Événement', 'crdtheme' ),
-		'add_new'            => __( 'Ajouter un événement', 'crdtheme' ),
-		'add_new_item'       => __( 'Ajouter un événement', 'crdtheme' ),
-		'edit_item'          => __( 'Modifier l\'événement', 'crdtheme' ),
-		'new_item'           => __( 'Nouvel événement', 'crdtheme' ),
-		'view_item'          => __( 'Voir l\'événement', 'crdtheme' ),
-		'search_items'       => __( 'Rechercher un événement', 'crdtheme' ),
-		'not_found'          => __( 'Aucun événement trouvé', 'crdtheme' ),
-		'not_found_in_trash' => __( 'Aucun événement dans la corbeille', 'crdtheme' ),
-		'menu_name'          => __( 'Agenda', 'crdtheme' ),
+		'name'               => 'Agenda',
+		'singular_name'      => 'Événement',
+		'add_new'            => 'Ajouter un événement',
+		'add_new_item'       => 'Ajouter un événement',
+		'edit_item'          => 'Modifier l\'événement',
+		'new_item'           => 'Nouvel événement',
+		'view_item'          => 'Voir l\'événement',
+		'search_items'       => 'Rechercher un événement',
+		'not_found'          => 'Aucun événement trouvé',
+		'not_found_in_trash' => 'Aucun événement dans la corbeille',
+		'menu_name'          => 'Agenda',
 	);
 
 	$args = array(
@@ -45,15 +45,15 @@ function crdtheme_register_cpt_agenda() {
 function crdtheme_register_tax_cat_agenda() {
 
 	$labels = array(
-		'name'              => __( 'Catégories', 'crdtheme' ),
-		'singular_name'     => __( 'Catégorie', 'crdtheme' ),
-		'search_items'      => __( 'Rechercher une catégorie', 'crdtheme' ),
-		'all_items'         => __( 'Toutes les catégories', 'crdtheme' ),
-		'edit_item'         => __( 'Modifier la catégorie', 'crdtheme' ),
-		'update_item'       => __( 'Mettre à jour la catégorie', 'crdtheme' ),
-		'add_new_item'      => __( 'Ajouter une catégorie', 'crdtheme' ),
-		'new_item_name'     => __( 'Nouvelle catégorie', 'crdtheme' ),
-		'menu_name'         => __( 'Catégories', 'crdtheme' ),
+		'name'              => 'Catégories',
+		'singular_name'     => 'Catégorie',
+		'search_items'      => 'Rechercher une catégorie',
+		'all_items'         => 'Toutes les catégories',
+		'edit_item'         => 'Modifier la catégorie',
+		'update_item'       => 'Mettre à jour la catégorie',
+		'add_new_item'      => 'Ajouter une catégorie',
+		'new_item_name'     => 'Nouvelle catégorie',
+		'menu_name'         => 'Catégories',
 	);
 
 	$args = array(
@@ -75,15 +75,15 @@ function crdtheme_register_tax_cat_agenda() {
 function crdtheme_register_tax_location() {
 
 	$labels = array(
-		'name'              => __( 'Lieux', 'crdtheme' ),
-		'singular_name'     => __( 'Lieu', 'crdtheme' ),
-		'search_items'      => __( 'Rechercher un lieu', 'crdtheme' ),
-		'all_items'         => __( 'Tous les lieux', 'crdtheme' ),
-		'edit_item'         => __( 'Modifier le lieu', 'crdtheme' ),
-		'update_item'       => __( 'Mettre à jour le lieu', 'crdtheme' ),
-		'add_new_item'      => __( 'Ajouter un lieu', 'crdtheme' ),
-		'new_item_name'     => __( 'Nouveau lieu', 'crdtheme' ),
-		'menu_name'         => __( 'Lieux', 'crdtheme' ),
+		'name'              => 'Lieux',
+		'singular_name'     => 'Lieu',
+		'search_items'      => 'Rechercher un lieu',
+		'all_items'         => 'Tous les lieux',
+		'edit_item'         => 'Modifier le lieu',
+		'update_item'       => 'Mettre à jour le lieu',
+		'add_new_item'      => 'Ajouter un lieu',
+		'new_item_name'     => 'Nouveau lieu',
+		'menu_name'         => 'Lieux',
 	);
 
 	$args = array(

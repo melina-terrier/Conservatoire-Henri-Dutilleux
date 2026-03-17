@@ -8,9 +8,9 @@ get_header();
 while ( have_posts() ) : the_post();
 	get_template_part( 'template-parts/hero' );
 	$disciplines = get_field( 'teaching_disciplines' );
-	$ems_titre   = get_field( 'teaching_ems_title' ) ?: 'Enseignement musical scolaire (EMS)';
+	$ems_titre   = get_field( 'teaching_ems_title' );
 	$ems_texte   = get_field( 'teaching_ems_content' );
-	$cha_titre   = get_field( 'teaching_cha_title' ) ?: 'Classes à horaires aménagés (CHA)';
+	$cha_titre   = get_field( 'teaching_cha_title' );
 	$cha_texte   = get_field( 'teaching_cha_content' );
 	$fichiers    = get_field( 'teaching_files' );
 ?>
@@ -33,7 +33,7 @@ while ( have_posts() ) : the_post();
 				<h2><?php echo $titre; ?></h2>
 			</div>
 
-			<?php if ( $intro ) echo esc_html( $intro ); ?>
+			<?php if ( $intro ) echo wp_kses_post( $intro ); ?>
 
 			<?php
 			$instruments = $disc['discipline_instruments'] ?? [];
@@ -95,27 +95,7 @@ while ( have_posts() ) : the_post();
 
 		<?php
 			endforeach;
-		else : ?>
-
-			<div class="disciplineSection" id="musique">
-				<p class="disciplineSection__tag">Discipline</p>
-				<h2>Musique</h2>
-			</div>
-			<p>Contenu à remplir dans WP Admin → Pages → Enseignements → champs ACF.</p>
-
-			<div class="disciplineSection" id="danse">
-				<p class="disciplineSection__tag">Discipline</p>
-				<h2>Danse contemporaine</h2>
-			</div>
-			<p>Contenu à remplir dans WP Admin → Pages → Enseignements → champs ACF.</p>
-
-			<div class="disciplineSection" id="theatre">
-				<p class="disciplineSection__tag">Discipline</p>
-				<h2>Théâtre</h2>
-			</div>
-			<p>Contenu à remplir dans WP Admin → Pages → Enseignements → champs ACF.</p>
-
-		<?php endif; ?>
+		endif; ?>
 
 		<?php if ( $ems_texte ) : ?>
 			<div class="infoBlock">

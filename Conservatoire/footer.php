@@ -65,7 +65,7 @@
     </div>
     <?php endif; ?>
 
-    <small class="footer__copyright">© 2026 Mélina Terrier — Projet d'exercice pédagogique</small>
+    <small class="footer__copyright">© 2026 <a href="https://www.melinaterrier.fr/" target="_blank">Mélina Terrier</a> — Projet d'exercice pédagogique</small>
     
   </footer>
   
