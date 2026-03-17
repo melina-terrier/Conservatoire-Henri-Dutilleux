@@ -69,8 +69,8 @@ function crdtheme_scripts_styles() {
  */
 function crdtheme_register_menus() {
   register_nav_menus( array(
-    'primary-menu' => esc_html__( 'En-tête de page', 'crdtheme' ),
-    'footer-menu' => esc_html__( 'Pied de page', 'crdtheme' )
+    'primary-menu' => 'En-tête de page',
+    'footer-menu' => 'Pied de page'
   ) );
 }
 
@@ -118,8 +118,8 @@ function crdtheme_ajax_load_posts() {
     'format'    => 'page/%#%/',
     'current'   => $page,
     'total'     => $query->max_num_pages,
-    'prev_text' => __( 'Précédent', 'crdtheme' ),
-    'next_text' => __( 'Suivant', 'crdtheme' ),
+    'prev_text' => 'Précédent',
+    'next_text' => 'Suivant',
   ));
 
   wp_send_json( array(

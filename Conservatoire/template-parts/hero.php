@@ -92,7 +92,6 @@ if ( is_post_type_archive() ) {
     else :
         if ( $chapo ) echo '<p class="chapo__text">' . esc_html($chapo) . '</p>';
     endif; ?>
-    
   </div>
 
   <div class="duotone hero__img"><?php echo $img; ?></div>

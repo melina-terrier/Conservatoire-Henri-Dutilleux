@@ -1,9 +1,8 @@
 <?php
 /**
  * Personnalisation des classes CSS du menu de navigation WordPress.
- *
- * @link https://developer.wordpress.org/reference/classes/walker_nav_menu/
  */
+
 class Crd_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 	private $menu_item_class = 'menu__item';

@@ -2,6 +2,8 @@
 Theme Name: Conservatoire
 Description: Thème du Conservatoire de Belfort
 Author: Mélina TERRIER
+Version: 1.0.0
+Author URI: https://melina-terrier.fr
 */
 
 // ─── Vendor ────────────────────────────────────────────────────────────────
@@ -10,8 +12,8 @@ Author: Mélina TERRIER
 
 // ─── Partials ──────────────────────────────────────────────────────────────
 @import 'partials/functions';
-@import 'partials/colors';
 @import 'partials/grid-vars';
+@import 'partials/colors';
 @import 'partials/fonts';
 @import 'partials/globals';
 

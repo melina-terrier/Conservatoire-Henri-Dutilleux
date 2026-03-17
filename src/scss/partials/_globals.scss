@@ -1,5 +1,3 @@
-@import 'functions';
-
 *,
 *:before,
 *:after {
@@ -43,7 +41,7 @@ svg {
 }
 
 .admin-bar {
-  margin-top: 32px; // WP admin bar height exacte
+  margin-top: 32px;
 
   .header {
     top: 32px;
