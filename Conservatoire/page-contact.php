@@ -19,7 +19,7 @@ while ( have_posts() ) : the_post();
 	$form_shortcode = get_field( 'form_shortcode' );
 ?>
 
-<div class="main-column">
+<div class="mainColumn">
 	<?php the_content(); ?>
 
 	<div class="contactInfos">
@@ -39,10 +39,12 @@ while ( have_posts() ) : the_post();
 			</address>
 		</div>
 
+		<?php if ( $horaires ) : ?>
 		<div class="contactInfos__block">
 			<h3>Horaires d'accueil</h3>
 			<p><?php echo nl2br( esc_html( $horaires ) ); ?></p>
 		</div>
+		<?php endif; ?>
 	</div>
 
 	<h2>Nos sites</h2>

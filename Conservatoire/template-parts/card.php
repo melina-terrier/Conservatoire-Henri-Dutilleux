@@ -1,13 +1,18 @@
 <?php
   $date = get_field_object('event_date');
   $date_formatted = '';
-  if ( $date && $date['value'] ) {
-    $timestamp = DateTime::createFromFormat('d/m/Y G:i', $date['value']);
+  if ( $date && ! empty( $date['value'] ) ) {
+    $timestamp = DateTime::createFromFormat( 'Y-m-d H:i:s', $date['value'] )
+              ?: DateTime::createFromFormat( 'd/m/Y G:i', $date['value'] );
     if ( $timestamp ) {
-      $date_formatted = date_i18n('j F \à G\hi', $timestamp->getTimestamp());
+      $date_format = get_option( 'date_format' ) . ' à ' . get_option( 'time_format' );
+      $date_formatted = wp_date( $date_format, $timestamp->getTimestamp() );
     }
   }
 
+  $heading_tag = isset( $args['heading'] ) && in_array( $args['heading'], array( 'h2', 'h3', 'h4' ), true )
+    ? $args['heading']
+    : 'h3';
 ?>
 
 <article class="card">
@@ -17,11 +22,11 @@
     </div>
   <?php endif; ?>
 
-  <h3 class="card__title">
+  <<?php echo $heading_tag; ?> class="card__title">
     <a class="card__titleLink" href="<?php the_permalink(); ?>">
-      <?php the_title(); ?>      
+      <?php the_title(); ?>
     </a>
-  </h3>
+  </<?php echo $heading_tag; ?>>
   
   <div class="card__caption">
     <?php if( $date_formatted ): ?>
@@ -31,7 +36,7 @@
       <p class="card__excerpt"><?php echo wp_trim_words( get_the_excerpt(), 15, '...' ); ?></p>
     <?php endif; ?>
     <a class="card__link morelink" href="<?php the_permalink(); ?>">
-      <?php echo esc_html__( "Plus d'info" )?>
+      Plus d'info
     </a>
   </div>
 </article>

@@ -6,7 +6,7 @@
 get_header();
 
 while ( have_posts() ) : the_post();
-	get_template_part( 'template-parts/hero' );
+	get_template_part( 'template-parts/hero', null, array( 'show_disciplines_menu' => true ) );
 	$disciplines = get_field( 'teaching_disciplines' );
 	$ems_titre   = get_field( 'teaching_ems_title' );
 	$ems_texte   = get_field( 'teaching_ems_content' );
@@ -15,7 +15,7 @@ while ( have_posts() ) : the_post();
 	$fichiers    = get_field( 'teaching_files' );
 ?>
 
-	<div class="main-column">
+	<div class="mainColumn">
 		<?php the_content(); ?>
 
 		<?php if ( $disciplines ) :
@@ -50,7 +50,7 @@ while ( have_posts() ) : the_post();
 			<?php endif; ?>
 
 			<?php if ( $cycles ) : ?>
-				<div class="cyclesTable-wrapper">
+				<div class="cyclesTable__wrapper">
 				<table class="cyclesTable">
 					<thead>
 						<tr>
@@ -100,14 +100,14 @@ while ( have_posts() ) : the_post();
 		<?php if ( $ems_texte ) : ?>
 			<div class="infoBlock">
 				<h2><?php echo esc_html( $ems_titre ); ?></h2>
-				<?php echo esc_html( $ems_texte ); ?>
+				<?php echo wp_kses_post( $ems_texte ); ?>
 			</div>
 		<?php endif; ?>
 
 		<?php if ( $cha_texte ) : ?>
 			<div class="infoBlock">
 				<h2><?php echo esc_html( $cha_titre ); ?></h2>
-				<?php echo esc_html( $cha_texte ); ?>
+				<?php echo wp_kses_post( $cha_texte ); ?>
 			</div>
 		<?php endif; ?>
 

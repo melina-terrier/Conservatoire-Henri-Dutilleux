@@ -2,9 +2,9 @@
 get_header();
 ?>
 
-<?php get_template_part( 'template-parts/hero', 'hero' ) ?>
+<?php get_template_part( 'template-parts/hero' ) ?>
 
-	<div class="main-column">
+	<div class="mainColumn">
 		<?php if ( have_posts() ) : 
 			while ( have_posts() ) :
 				the_post();

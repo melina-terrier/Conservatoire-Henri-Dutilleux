@@ -59,10 +59,19 @@
     li {
       margin-right: rem(20);
     }
+
+    svg {
+      width: rem(24);
+      height: rem(24);
+      display: block;
+    }
   }
 
   &__title {
     margin-top: 0;
+    margin-bottom: rem(16);
+    font-size: 1.17em;
+    font-weight: bold;
   }
 
   &__address {

@@ -11,9 +11,9 @@
           // Section présentation CRD avec chiffres
           if( get_row_layout() == 'section_numbers' ):
             $chapo    = get_sub_field('numbers_subtitle');
-            $ctaBtn   = get_sub_field('numbers_show_cta');
-            $ctaTxt   = get_sub_field('numbers_cta_label');
-            $ctaLink  = get_sub_field('numbers_cta_link');
+            $cta_btn   = get_sub_field('numbers_show_cta');
+            $cta_txt   = get_sub_field('numbers_cta_label');
+            $cta_link  = get_sub_field('numbers_cta_link');
             $image    = get_sub_field('numbers_image');
             $chiffres = 'numbers_items';
             ?>
@@ -28,12 +28,12 @@
                 <?php if ( $chapo ) : ?>
                 <h2 class="crd__title"><?php echo wp_kses_post( $chapo ); ?></h2>
                 <?php endif; ?>
-                <?php if ( $ctaBtn && $ctaLink ) : ?>
-                  <a class="crd__link btn" href="<?php echo esc_url( $ctaLink ); ?>">
+                <?php if ( $cta_btn && $cta_link ) : ?>
+                  <a class="crd__link btn" href="<?php echo esc_url( $cta_link ); ?>">
                     <svg class="btn__arrow" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M23.354 12.354a.5.5 0 000-.708l-3.182-3.182a.5.5 0 10-.707.708L22.293 12l-2.828 2.828a.5.5 0 10.707.708l3.182-3.182zM0 12.5h23v-1H0v1z" fill="#1C1514" />
                     </svg>
-                    <?php echo esc_html( $ctaTxt ); ?>
+                    <?php echo esc_html( $cta_txt ); ?>
                   </a>
                 <?php endif; ?>
               </header>
@@ -58,10 +58,10 @@
               elseif( get_row_layout() == 'section_featured' ):
                 $title   = get_sub_field('featured_title');
                 $chapo   = get_sub_field('featured_subtitle');
-                $ctaBtn  = get_sub_field('featured_show_cta');
-                $ctaTxt  = get_sub_field('featured_cta_label');
-                $ctaLink = get_sub_field('featured_cta_link');
-                $cptBtn  = get_sub_field('featured_show_events');
+                $cta_btn  = get_sub_field('featured_show_cta');
+                $cta_txt  = get_sub_field('featured_cta_label');
+                $cta_link = get_sub_field('featured_cta_link');
+                $cpt_btn  = get_sub_field('featured_show_events');
               ?>
 
             <section class="grid -withHeader section">
@@ -73,15 +73,15 @@
                 <p class="section__intro"><?php echo wp_kses_post( $chapo ); ?></p>
                 <?php endif; ?>
               </header>
-              <?php if ( $ctaBtn && $ctaLink ) : ?>
-              <a class="section__link btn" href="<?php echo esc_url( $ctaLink ); ?>">
+              <?php if ( $cta_btn && $cta_link ) : ?>
+              <a class="section__link btn" href="<?php echo esc_url( $cta_link ); ?>">
                 <svg class="btn__arrow" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M23.354 12.354a.5.5 0 000-.708l-3.182-3.182a.5.5 0 10-.707.708L22.293 12l-2.828 2.828a.5.5 0 10.707.708l3.182-3.182zM0 12.5h23v-1H0v1z" fill="#1C1514" />
                 </svg>
-                <?php echo esc_html( $ctaTxt ); ?>
+                <?php echo esc_html( $cta_txt ); ?>
               </a>
               <?php endif; ?>
-              <?php if( $cptBtn ): ?>
+              <?php if( $cpt_btn ): ?>
               <?php
                 $today = wp_date('Y-m-d H:i:s');
                 $args = array(
@@ -115,9 +115,9 @@
               elseif( get_row_layout() == 'section_banner' ):
                 $title   = get_sub_field('banner_title');
                 $chapo   = get_sub_field('banner_subtitle');
-                $ctaBtn  = get_sub_field('banner_show_cta');
-                $ctaTxt  = get_sub_field('banner_cta_label');
-                $ctaLink = get_sub_field('banner_cta_link');
+                $cta_btn  = get_sub_field('banner_show_cta');
+                $cta_txt  = get_sub_field('banner_cta_label');
+                $cta_link = get_sub_field('banner_cta_link');
                 $image   = get_sub_field('banner_image');
               ?>
 
@@ -130,12 +130,12 @@
                 <p class="section__intro"><?php echo wp_kses_post( $chapo ); ?></p>
                 <?php endif; ?>
               </header>
-              <?php if ( $ctaBtn && $ctaLink ) : ?>
-              <a class="section__link btn -outlined" href="<?php echo esc_url( $ctaLink ); ?>">
+              <?php if ( $cta_btn && $cta_link ) : ?>
+              <a class="section__link btn -outlined" href="<?php echo esc_url( $cta_link ); ?>">
                 <svg class="btn__arrow" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M23.354 12.354a.5.5 0 000-.708l-3.182-3.182a.5.5 0 10-.707.708L22.293 12l-2.828 2.828a.5.5 0 10.707.708l3.182-3.182zM0 12.5h23v-1H0v1z" fill="#1C1514" />
                 </svg>
-                <?php echo esc_html( $ctaTxt ); ?>
+                <?php echo esc_html( $cta_txt ); ?>
               </a>
               <?php endif; ?>
               <?php if ( $image ) : ?>

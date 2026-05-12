@@ -8,7 +8,6 @@ Thumbs.db
 # Node
 node_modules/
 npm-debug.log*
-package-lock.json
 
 # Sass compilé (généré depuis src/scss/)
 Conservatoire/style.css
@@ -24,5 +23,7 @@ wp_data/
 *.tmp
 *.bak
 vendor/
-_CC1.rtf
 html/
+
+# Backups WPVivid (à ne jamais committer)
+*_wpvivid-*_backup_all.zip

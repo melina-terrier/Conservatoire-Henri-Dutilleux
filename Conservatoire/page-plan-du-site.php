@@ -9,7 +9,7 @@ while ( have_posts() ) : the_post();
 	get_template_part( 'template-parts/hero' );
 	?>
 
-	<div class="main-column legalContent">
+	<div class="mainColumn legalContent">
 		<?php the_content(); ?>
 
 		<?php if ( have_rows( 'sitemap_main_pages' ) ) : ?>
@@ -23,7 +23,9 @@ while ( have_posts() ) : the_post();
 				<div class="sitemapGrid__item">
 					<?php if ( $link ) : ?>
 						<h3 class="sitemapGrid__title"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $title ); ?></a></h3>
-						<p class="sitemapGrid__desc"><?php echo esc_html( $description ); ?></p>
+						<?php if ( $description ) : ?>
+							<p class="sitemapGrid__desc"><?php echo esc_html( $description ); ?></p>
+						<?php endif; ?>
 					<?php endif; ?>
 				</div>
 				<?php endwhile; ?>
@@ -41,7 +43,9 @@ while ( have_posts() ) : the_post();
 				<div class="sitemapGrid__item">
 					<?php if ( $link ) : ?>
 						<h3 class="sitemapGrid__title"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $title ); ?></a></h3>
-						<p class="sitemapGrid__desc"><?php echo esc_html( $description ); ?></p>
+						<?php if ( $description ) : ?>
+							<p class="sitemapGrid__desc"><?php echo esc_html( $description ); ?></p>
+						<?php endif; ?>
 					<?php endif; ?>
 				</div>
 				<?php endwhile; ?>

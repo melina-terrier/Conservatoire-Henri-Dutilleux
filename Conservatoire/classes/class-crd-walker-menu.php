@@ -1,6 +1,14 @@
 <?php
 /**
- * Personnalisation des classes CSS du menu de navigation WordPress.
+ * Walker custom pour le menu de navigation principal.
+ *
+ * Override de Walker_Nav_Menu pour :
+ *  - appliquer les classes BEM du thème (menu__item, menu__link) plutôt que
+ *    les classes WordPress par défaut (menu-item, etc.)
+ *  - marquer la classe 'active' sur l'item courant et son parent
+ *  - gérer la variante bouton '-btn' (item de menu stylé comme un CTA)
+ *  - injecter aria-current="page" sur le lien actif (accessibilité)
+ *  - forcer rel="noopener noreferrer" sur les liens target="_blank" (sécurité)
  */
 
 class Crd_Walker_Nav_Menu extends Walker_Nav_Menu {
@@ -32,10 +40,17 @@ class Crd_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$class_names = esc_attr( implode( ' ', $my_classes ) );
 		$output     .= '<li class="' . $class_names . '">';
 
+		$is_current  = in_array( 'current-menu-item', $classes, true );
+		$rel_value   = ! empty( $item->xfn ) ? $item->xfn : '';
+		if ( ! empty( $item->target ) && '_blank' === $item->target && false === stripos( $rel_value, 'noopener' ) ) {
+			$rel_value = trim( $rel_value . ' noopener noreferrer' );
+		}
+
 		$attributes  = ! empty( $item->attr_title ) ? ' title="'  . esc_attr( $item->attr_title ) . '"' : '';
 		$attributes .= ! empty( $item->target )     ? ' target="' . esc_attr( $item->target )     . '"' : '';
-		$attributes .= ! empty( $item->xfn )        ? ' rel="'    . esc_attr( $item->xfn )        . '"' : '';
+		$attributes .= ! empty( $rel_value )        ? ' rel="'    . esc_attr( $rel_value )        . '"' : '';
 		$attributes .= ! empty( $item->url )        ? ' href="'   . esc_attr( $item->url )        . '"' : '';
+		$attributes .= $is_current                  ? ' aria-current="page"' : '';
 		$attributes .= ' class="' . $this->menu_link_class . '"';
 
 		$item_output = sprintf(

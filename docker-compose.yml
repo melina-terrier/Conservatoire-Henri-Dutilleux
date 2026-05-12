@@ -14,14 +14,14 @@ services:
       - 3306
       - 33060
   wordpress:
-    image: wordpress:latest
+    image: wordpress:6.9.4
     volumes:
       - wp_data:/var/www/html
       - type: bind
         source: ./Conservatoire
         target: /var/www/html/wp-content/themes/Conservatoire
     ports:
-      - 80:80
+      - 8080:80
     restart: always
     environment:
       - WORDPRESS_DB_HOST=db
@@ -34,7 +34,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8081:8080
 
 volumes:
   db_data:

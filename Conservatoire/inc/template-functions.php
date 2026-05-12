@@ -1,6 +1,14 @@
 <?php
 
-
+/**
+ * Initialise les supports thème : balise <title>, miniatures, HTML5,
+ * logo personnalisé, désactivation des sélecteurs Gutenberg de couleur/taille,
+ * et déclaration des tailles d'images custom ('square' 1024×1024, 'paysage' 1024×680).
+ *
+ * Hooké sur `after_setup_theme` dans inc/actions.php.
+ *
+ * @return void
+ */
 function crdtheme_setup() {
 
   // permet aux plugins et aux thèmes de gérer la balise de titre du document.
@@ -36,7 +44,7 @@ function crdtheme_setup() {
   // Désactive les tailles de police et couleurs pour Gutenberg
   add_theme_support( 'disable-custom-font-sizes' );
   add_theme_support( 'disable-custom-colors' );
-  add_theme_support( 'editor-color-palette' );
+  add_theme_support( 'editor-color-palette', array() );
 
   // permet la prise en charge des extraits.
   add_post_type_support( 'page', 'excerpt' );
@@ -48,24 +56,35 @@ function crdtheme_setup() {
 }
 
 /**
- * File d'attente des scripts et des styles.
+ * Enregistre les feuilles de style et scripts du thème.
+ *
+ * Utilise la version du thème (header style.css) pour le cache busting :
+ * incrémenter "Version:" dans le header de style.css force la régénération
+ * de l'URL côté navigateur après un déploiement.
+ *
+ * `wp_localize_script` expose les valeurs côté JS (ajaxURL, base, nonce)
+ * via la variable globale `esgiValues` dans script.js.
+ *
+ * @return void
  */
 function crdtheme_scripts_styles() {
 
-	wp_enqueue_style( 'crd-style', get_stylesheet_uri() );
-	wp_enqueue_script( 'crd-vendors', get_template_directory_uri() . '/src/js/vendors.js', array(), '', true );
-	wp_enqueue_script( 'crd-scripts', get_template_directory_uri() . '/src/js/script.js', array( 'crd-vendors' ), '', true );
+	$theme_version = wp_get_theme()->get( 'Version' );
 
-	wp_localize_script( 'crd-scripts', 'esgiValues', array(
-		'ajaxURL' => admin_url( 'admin-ajax.php' ),
-		'base'    => get_pagenum_link( 1 ),
-		'nonce'   => wp_create_nonce( 'crdtheme_load_posts' ),
-	));
+	wp_enqueue_style( 'crd-style', get_stylesheet_uri(), array(), $theme_version );
+	wp_enqueue_script( 'crd-vendors', get_template_directory_uri() . '/src/js/vendors.js', array(), $theme_version, true );
+	wp_enqueue_script( 'crd-scripts', get_template_directory_uri() . '/src/js/script.js', array( 'crd-vendors' ), $theme_version, true );
 
 }
 
 /**
- * Enregistre les emplacements du menu de navigation pour un thème.
+ * Déclare les emplacements de menu utilisés par le thème :
+ * - primary-menu : menu principal du header
+ * - footer-menu  : menu secondaire du footer
+ *
+ * L'utilisateur peut ensuite y associer un menu via Admin → Apparence → Menus.
+ *
+ * @return void
  */
 function crdtheme_register_menus() {
   register_nav_menus( array(
@@ -76,61 +95,80 @@ function crdtheme_register_menus() {
 
 
 /**
- * Callback AJAX pour le chargement paginé des événements de l'agenda.
+ * Décale automatiquement les événements passés vers le futur en ajoutant
+ * des années jusqu'à ce que la date soit postérieure à maintenant.
+ *
+ * Utilité : ce site sert de portfolio/démo et doit rester "vivant" plusieurs
+ * mois après livraison sans intervention manuelle. Les événements gardent
+ * leur jour/mois/heure, seule l'année change.
+ *
+ * Précondition : le champ ACF `event_date` est stocké en base au format
+ * MySQL DATETIME `Y-m-d H:i:s` (vérifié dans wp_postmeta). Si la config ACF
+ * change pour stocker `d/m/Y G:i` ou autre, createFromFormat retourne false
+ * et la fonction passe silencieusement à l'événement suivant sans rien shifter
+ * et sans logger d'erreur. Régression invisible à surveiller.
+ *
+ * Performance : filtre `meta_query` >= now() côté SQL, donc ne traite que
+ * les événements réellement passés. update_post_meta() direct (pas update_field)
+ * pour éviter de charger ACF en contexte cron.
+ *
+ * Déclenchée par le cron quotidien `crdtheme_shift_events_cron` et par la
+ * logique de rattrapage dans crdtheme_schedule_shift_events_cron().
+ *
+ * @return void
  */
-function crdtheme_ajax_load_posts() {
-  check_ajax_referer( 'crdtheme_load_posts', 'nonce' );
+function crdtheme_shift_past_events_to_future() {
+  $now = current_time( 'Y-m-d H:i:s' );
 
-  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-  $base = isset( $_GET['base'] ) ? esc_url_raw( $_GET['base'] ) : get_post_type_archive_link( 'agenda' );
-
-  $today = wp_date('Y-m-d H:i:s');
-  $args = array(
+  $past_events = get_posts( array(
     'post_type'      => 'agenda',
-    'posts_per_page' => 6,
-    'paged'          => $page,
-    'meta_key'       => 'event_date',
-    'orderby'        => 'meta_value',
-    'order'          => 'ASC',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'fields'         => 'ids',
     'meta_query'     => array(
       array(
         'key'     => 'event_date',
-        'value'   => $today,
-        'compare' => '>=',
+        'value'   => $now,
+        'compare' => '<',
       ),
     ),
-  );
+  ));
 
-  $query = new WP_Query( $args );
-
-  ob_start();
-  if ( $query->have_posts() ) {
-    while ( $query->have_posts() ) {
-      $query->the_post();
-      get_template_part( 'template-parts/card', 'card' );
-    }
-    wp_reset_postdata();
+  if ( empty( $past_events ) ) {
+    return;
   }
-  $cards_html = ob_get_clean();
 
-  $pagination = paginate_links( array(
-    'base'      => trailingslashit( $base ) . '%_%',
-    'format'    => 'page/%#%/',
-    'current'   => $page,
-    'total'     => $query->max_num_pages,
-    'prev_text' => 'Précédent',
-    'next_text' => 'Suivant',
-  ));
+  $now_dt = new DateTimeImmutable( $now, wp_timezone() );
 
-  wp_send_json( array(
-    'cards'      => $cards_html,
-    'pagination' => $pagination ?: '',
-  ));
+  foreach ( $past_events as $event_id ) {
+    $stored = get_post_meta( $event_id, 'event_date', true );
+    $event_dt = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $stored, wp_timezone() );
+    if ( ! $event_dt ) {
+      continue;
+    }
+    while ( $event_dt < $now_dt ) {
+      $event_dt = $event_dt->modify( '+1 year' );
+    }
+    update_post_meta( $event_id, 'event_date', $event_dt->format( 'Y-m-d H:i:s' ) );
+  }
 }
 
-
 /**
- * Personnalisation de la requête principale sur les archives et taxonomies du CPT agenda.
+ * Filtre la requête principale sur l'archive du CPT agenda et ses taxonomies
+ * pour ne retourner que les événements futurs, triés par date croissante.
+ *
+ * Hooké sur `pre_get_posts`. Garde-fou : ! is_admin() évite d'altérer les
+ * listes du back-office. is_main_query() évite d'altérer les requêtes
+ * secondaires d'autres plugins.
+ *
+ * Précondition : le champ ACF `event_date` est stocké au format
+ * `Y-m-d H:i:s`. Le tri et la comparaison >= sont des comparaisons de chaînes
+ * MySQL — elles ne fonctionnent correctement que parce que `Y-m-d H:i:s` est
+ * lexicographiquement triable. Avec `d/m/Y G:i`, le tri donnerait n'importe
+ * quoi (le jour passerait avant l'année).
+ *
+ * @param WP_Query $query Instance de la requête en cours de construction.
+ * @return WP_Query Instance modifiée (passage par référence).
  */
 function crdtheme_custom_query_vars( $query ) {
 

@@ -1,8 +1,19 @@
 <?php
 
-/*
- Ajoute les pages d'options ACF au menu d'administration.
-*/
+/**
+ * Déclare les pages d'options ACF accessibles aux éditeurs (capability 'edit_posts').
+ *
+ * - 'infos-site' : page parente "Infos générales" (post_id 'infos')
+ *   contient adresse, téléphone, email, réseaux sociaux, logos du footer.
+ * - Sous-page 'header_archives' : en-têtes des pages d'archive (image + chapo
+ *   selon le type d'archive).
+ * - Sous-page 'header_enseignements' : items du sous-menu Enseignements
+ *   (utilisé sur la home et la page Enseignements via show_disciplines_menu).
+ *
+ * Garde-fou : sortie silencieuse si ACF Pro n'est pas chargé.
+ *
+ * @return void
+ */
 function crdtheme_acf_options_pages() {
 	if( ! function_exists('acf_add_options_page') ) return;
 
@@ -36,7 +47,21 @@ function crdtheme_acf_options_pages() {
 	));
 }
 
-/* Pour activer la carte Google map */
+/**
+ * Injecte la clé Google Maps API dans la configuration ACF pour activer
+ * le rendu des champs de type "Google Map".
+ *
+ * Précondition : la constante GOOGLE_MAPS_API_KEY DOIT être définie avant
+ * que ce hook se déclenche (sinon : "Undefined constant" → erreur fatale
+ * qui casse tout WordPress, comme constaté en début de projet). Elle est
+ * actuellement déclarée dans functions.php tout en haut, à partir de la
+ * variable d'env Docker GOOGLE_MAPS_API_KEY (cf. .env). Ne pas déplacer
+ * ce define dans un fichier inclus après acf/init.
+ *
+ * Hooké sur 'acf/init' dans inc/actions.php.
+ *
+ * @return void
+ */
 function google_map_api() {
-  acf_update_setting('google_api_key', getenv('GOOGLE_MAPS_API_KEY'));
+  acf_update_setting('google_api_key', GOOGLE_MAPS_API_KEY );
 }

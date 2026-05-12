@@ -1,7 +1,14 @@
 <?php
 
 /**
- * Enregistrement du Custom Post Type : agenda
+ * Enregistre le Custom Post Type "agenda" représentant les événements
+ * du Conservatoire (concerts, portes ouvertes, spectacles, etc.).
+ *
+ * Supporte : title, editor, thumbnail, excerpt, custom-fields (pour ACF).
+ * Visible publiquement, archive activée avec slug /agenda/, single via
+ * single-agenda.php.
+ *
+ * @return void
  */
 function crdtheme_register_cpt_agenda() {
 
@@ -40,7 +47,12 @@ function crdtheme_register_cpt_agenda() {
 }
 
 /**
- * Enregistrement de la taxonomie : cat_agenda (catégorie d'événement)
+ * Enregistre la taxonomie hiérarchique "cat_agenda" sur le CPT agenda.
+ *
+ * Permet de classer les événements par catégorie (musique classique, jazz,
+ * danse, théâtre, etc.). Hiérarchique → fonctionne comme les catégories WP.
+ *
+ * @return void
  */
 function crdtheme_register_tax_cat_agenda() {
 
@@ -70,7 +82,13 @@ function crdtheme_register_tax_cat_agenda() {
 }
 
 /**
- * Enregistrement de la taxonomie : location (lieu de l'événement)
+ * Enregistre la taxonomie hiérarchique "location" sur le CPT agenda.
+ *
+ * Permet de classer les événements par lieu (Salle Granit, Auditorium…).
+ * Le Conservatoire ayant plusieurs sites, cette taxo permet de filtrer
+ * l'agenda par site sur la prod.
+ *
+ * @return void
  */
 function crdtheme_register_tax_location() {
 

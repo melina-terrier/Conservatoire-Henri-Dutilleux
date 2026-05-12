@@ -4,9 +4,9 @@ get_header();
 get_template_part( 'template-parts/hero' );
 	
 	if(have_posts()) : ?>
-		<div id="ajax-response" class="grid">
+		<div class="grid">
 			<?php	while(have_posts()) : the_post();
-				get_template_part('template-parts/card', 'card');
+				get_template_part( 'template-parts/card', 'card', array( 'heading' => 'h2' ) );
 			endwhile; ?>
 		</div>
 	

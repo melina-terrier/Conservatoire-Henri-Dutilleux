@@ -16,10 +16,11 @@ Author URI: https://melina-terrier.fr
 @import 'partials/colors';
 @import 'partials/fonts';
 @import 'partials/globals';
+@import 'partials/a11y';
 
 // ─── Layout ────────────────────────────────────────────────────────────────
 @import 'layout/grid';
-@import 'layout/main-column';
+@import 'layout/mainColumn';
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/menu';
