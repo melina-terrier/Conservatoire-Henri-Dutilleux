@@ -1,0 +1,36 @@
+@use "../partials/functions";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: functions.rem(48);
+
+  .nav-links {
+    text-transform: uppercase;
+
+    .page-numbers {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--dark-color);
+      padding: functions.rem(10);
+      min-width: functions.rem(45);
+      height: functions.rem(45);
+      text-align: center;
+    }
+
+    .current {
+      border: 1px solid var(--gray-200);
+      border-radius: 50%;
+    }
+  }
+}
+
+// Indicateur "Page X sur Y" rendu juste avant la pagination dans archive.php.
+.pageInfo {
+  text-align: center;
+  margin: functions.rem(32) 0 functions.rem(8);
+  font-size: functions.fluid(11, 13);
+  text-transform: uppercase;
+  letter-spacing: functions.rem(1);
+  color: var(--gray-300);
+}

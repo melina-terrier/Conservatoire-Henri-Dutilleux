@@ -20,7 +20,7 @@ while ( have_posts() ) : the_post();
 
 		<?php if ( $disciplines ) :
 			foreach ( $disciplines as $disc ) :
-				$titre     = esc_html( $disc['discipline_title'] );
+				$titre     = $disc['discipline_title'] ?? '';
 				$intro     = $disc['discipline_intro'] ?? '';
 				$cycles    = $disc['discipline_cycles'] ?? [];
 				$image     = $disc['discipline_image'] ?? null;
@@ -30,7 +30,7 @@ while ( have_posts() ) : the_post();
 
 			<div class="disciplineSection">
 				<p class="disciplineSection__tag">Discipline</p>
-				<h2><?php echo $titre; ?></h2>
+				<h2><?php echo esc_html( $titre ); ?></h2>
 			</div>
 
 			<?php if ( $intro ) echo wp_kses_post( $intro ); ?>
@@ -42,8 +42,8 @@ while ( have_posts() ) : the_post();
 				<div class="instrumentsGrid">
 					<?php foreach ( $instruments as $ins ) : ?>
 						<div class="instrumentsGrid__family">
-							<p class="instrumentsGrid__name"><?php echo esc_html( $ins['instrument_family'] ); ?></p>
-							<p class="instrumentsGrid__list"><?php echo esc_html( $ins['instrument_list'] ); ?></p>
+							<p class="instrumentsGrid__name"><?php echo esc_html( $ins['instrument_family'] ?? '' ); ?></p>
+							<p class="instrumentsGrid__list"><?php echo esc_html( $ins['instrument_list'] ?? '' ); ?></p>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -52,19 +52,20 @@ while ( have_posts() ) : the_post();
 			<?php if ( $cycles ) : ?>
 				<div class="cyclesTable__wrapper">
 				<table class="cyclesTable">
+					<caption class="sr-only">Cycles d'enseignement — <?php echo esc_html( $titre ); ?></caption>
 					<thead>
 						<tr>
-							<th>Cycle</th>
-							<th>Âge / Niveau</th>
-							<th>Contenu</th>
+							<th scope="col">Cycle</th>
+							<th scope="col">Âge / Niveau</th>
+							<th scope="col">Contenu</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ( $cycles as $c ) : ?>
 							<tr>
-								<td><?php echo esc_html( $c['cycle_name'] ); ?></td>
-								<td><?php echo esc_html( $c['cycle_age_level'] ); ?></td>
-								<td><?php echo esc_html( $c['cycle_content'] ); ?></td>
+								<th scope="row"><?php echo esc_html( $c['cycle_name'] ?? '' ); ?></th>
+								<td><?php echo esc_html( $c['cycle_age_level'] ?? '' ); ?></td>
+								<td><?php echo esc_html( $c['cycle_content'] ?? '' ); ?></td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -72,10 +73,21 @@ while ( have_posts() ) : the_post();
 				</div>
 			<?php endif; ?>
 
-			<?php if ( $image ) : ?>
+			<?php if ( $image && ! empty( $image['ID'] ) ) : ?>
 				<figure>
-					<img src="<?php echo esc_url( $image['url'] ); ?>"
-						alt="<?php echo esc_attr( $image['alt'] ?: $titre ); ?>">
+					<?php
+					// Taille 'large' + srcset auto (évite de servir l'original ~380 Ko sur mobile).
+					echo wp_get_attachment_image(
+						$image['ID'],
+						'large',
+						false,
+						array(
+							'alt'      => ! empty( $image['alt'] ) ? $image['alt'] : $titre,
+							'loading'  => 'lazy',
+							'decoding' => 'async',
+						)
+					);
+					?>
 					<?php if ( $legende ) : ?>
 						<figcaption><?php echo esc_html( $legende ); ?></figcaption>
 					<?php endif; ?>
@@ -87,7 +99,7 @@ while ( have_posts() ) : the_post();
 					<h3>Pratiques collectives</h3>
 					<ul>
 						<?php foreach ( $pratiques as $p ) : ?>
-							<li><?php echo esc_html( $p['practice_name'] ); ?></li>
+							<li><?php echo esc_html( $p['practice_name'] ?? '' ); ?></li>
 						<?php endforeach; ?>
 					</ul>
 				</div>
@@ -111,22 +123,9 @@ while ( have_posts() ) : the_post();
 			</div>
 		<?php endif; ?>
 
-		<?php if ( $fichiers ) :
-			foreach ( $fichiers as $f ) :
-				$file = $f['file_upload'];
-				if ( ! $file ) continue;
-		?>
-			<div class="wp-block-file">
-				<a href="<?php echo esc_url( $file['url'] ); ?>">
-					<?php echo esc_html( $f['file_label'] ?: $file['filename'] ); ?>
-				</a>
-				<a class="wp-block-file__button" href="<?php echo esc_url( $file['url'] ); ?>" download>
-					Télécharger
-				</a>
-			</div>
-		<?php
-			endforeach;
-		endif; ?>
+		<?php if ( $fichiers ) {
+			get_template_part( 'template-parts/file-list', null, array( 'files' => $fichiers ) );
+		} ?>
 
 	</div>
 

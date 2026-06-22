@@ -1,0 +1,103 @@
+@use "../partials/functions";
+
+.card {
+  grid-column: span 4;
+
+  // `min-width: 0` empêche les grid/flex items de "pousser" au-delà de leur
+  // colonne quand un descendant a un contenu long ou un padding négatif — cas
+  // observé sur la card "Les Liaisons" en mobile qui débordait à gauche.
+  min-width: 0;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: functions.rem(24) 1fr;
+  grid-template-rows: functions.rem(200) functions.rem(50) 1fr;
+  margin-top: functions.rem(36);
+
+  @media (max-width: 639px) {
+    // Sur mobile, la grille parente passe à 1 colonne mais la card garde
+    // `span 4` (héritage desktop) ce qui peut déborder. On force la pleine ligne.
+    grid-column: 1 / -1;
+
+    // Marge décorative réduite (24 → 16 px) pour gagner du contenu utile
+    // sur les viewports étroits (375 px et moins).
+    grid-template-columns: functions.rem(16) 1fr;
+  }
+
+  @media (min-width: 640px) {
+    grid-template-columns: 15.5% 1fr;
+  }
+
+  @media (min-width: 960px) {
+    margin-top: 0;
+  }
+
+  &:hover {
+    .card__img {
+      background-color: transparent;
+
+      &::before {
+        background-color: transparent;
+      }
+
+      img {
+        filter: inherit;
+      }
+    }
+  }
+
+  &__img {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+
+    // Anti grid-overflow : sans `min-width: 0`, l'image native déborde
+    // la cellule à 375 px (la fiche événement "Traversées" était impactée).
+    min-width: 0;
+    max-width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+    }
+  }
+
+  &__title {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    z-index: 1;
+    align-self: flex-end;
+    color: var(--light-color);
+    font-family: "Space Mono", courier, monospace;
+    font-weight: normal;
+    margin-right: functions.rem(16);
+    font-size: functions.fluid(28, 32);
+    line-height: 1.1;
+  }
+
+  &__titleLink {
+    color: var(--light-color);
+    text-decoration: none;
+    display: block;
+  }
+
+  &__caption {
+    background-color: var(--light-color);
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 2;
+    z-index: 1;
+    padding: functions.rem(28);
+  }
+
+  &__date {
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__excerpt {
+    margin: functions.rem(8) 0 functions.rem(16);
+  }
+
+  &__link {
+    margin: 0;
+  }
+}

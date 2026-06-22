@@ -1,0 +1,87 @@
+@use "../partials/functions";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: functions.rem(80);
+  z-index: 10;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 0 functions.rem(24);
+  transition: all .4s ease;
+
+  @media (min-width: 1024px) {
+    background-color: white;
+    padding-right: 0;
+  }
+
+  &.headroom--not-top {
+    background-color: white;
+  }
+
+  &__start {
+    display: flex;
+    align-items: center;
+  }
+
+  &__end {
+    display: flex;
+    flex-direction: row-reverse;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+    }
+  }
+
+  &__search {
+    appearance: none;
+    border: none;
+    background: inherit;
+    width: functions.rem(80);
+    cursor: pointer;
+  }
+
+  &__logo {
+    position: relative;
+    z-index: 20;
+
+    .styleSvg {
+      width: functions.rem(50);
+      height: functions.rem(50);
+      display: block;
+
+      @media (min-width: 1024px) {
+        border: 1px solid var(--dark-color);
+      }
+    }
+  }
+}
+
+
+.headroom {
+  transition: transform 200ms linear;
+
+  &--top {
+    .header__search {
+      svg circle,
+      svg path {
+        stroke: var(--light-color);
+
+        @media (min-width: 1024px) {
+          stroke: var(--dark-color);
+        }
+      }
+    }
+  }
+
+  &--pinned {
+    transform: translateY(0%);
+  }
+
+  &--unpinned {
+    transform: translateY(-100%);
+  }
+}

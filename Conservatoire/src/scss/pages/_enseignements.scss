@@ -1,0 +1,175 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+.disciplineSection {
+  border-top: 2px solid var(--dark-color);
+  padding-top: functions.rem(16);
+  margin-top: functions.rem(80);
+
+  &__tag {
+    @include mixins.caption-text;
+
+    color: var(--gray-300);
+    margin: 0 0 functions.rem(12);
+  }
+}
+
+.instrumentsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: functions.rem(24) 0 functions.rem(40);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__family {
+    padding: functions.rem(16) functions.rem(24) functions.rem(16) 0;
+    border-bottom: 1px solid var(--gray-200);
+    border-right: 1px solid var(--gray-200);
+
+    &:nth-child(even) {
+      padding-left: functions.rem(24);
+      padding-right: 0;
+      border-right: none;
+    }
+
+    @media (min-width: 640px) {
+      &:nth-child(even) {
+        padding-left: 0;
+        padding-right: functions.rem(24);
+        border-right: 1px solid var(--gray-200);
+      }
+
+      &:nth-child(3n) {
+        padding-right: 0;
+        border-right: none;
+      }
+
+      &:nth-child(3n+2),
+      &:nth-child(3n+3) {
+        padding-left: functions.rem(24);
+      }
+    }
+  }
+
+  &__name {
+    @include mixins.caption-text;
+
+    margin: 0 0 functions.rem(4);
+  }
+
+  &__list {
+    margin: 0;
+    font-size: functions.fluid(11, 13);
+    color: var(--gray-300);
+  }
+}
+
+
+.cyclesTable__wrapper {
+  margin: functions.rem(32) 0 functions.rem(48);
+}
+
+.cyclesTable {
+  @include mixins.data-table;
+
+  margin: 0;
+
+  // `data-table` ne couvre que `td` ; on étend les règles communes à `tbody th`
+  // (première colonne sémantique en header de ligne pour les noms de cycle).
+  tbody th {
+    padding: functions.rem(12) functions.rem(16) functions.rem(12) 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gray-200);
+    text-align: left;
+    font-weight: normal;
+    font-family: "Space Mono", courier, monospace;
+    white-space: nowrap;
+  }
+
+  td {
+    text-align: left;
+  }
+
+  tbody tr:last-child td,
+  tbody tr:last-child th {
+    border-bottom: none;
+  }
+
+  @media (max-width: 639px) {
+    font-size: functions.rem(11);
+
+    thead th {
+      padding: functions.rem(6) functions.rem(8) functions.rem(6) 0;
+      letter-spacing: 0;
+    }
+
+    td,
+    tbody th {
+      padding: functions.rem(8) functions.rem(8) functions.rem(8) 0;
+      white-space: normal;
+
+      // `hyphens: auto` coupe correctement aux frontières syllabiques
+      // (nécessite `lang="fr"` sur <html>, déjà posé via WP `language_attributes()`).
+      // Évite les coupures brutales du genre "Approfondis|sement" en mobile.
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+  }
+}
+
+.collectifBlock {
+  background-color: var(--gray-100);
+  padding: functions.rem(32) functions.rem(40);
+  margin: functions.rem(48) 0;
+
+  @media (max-width: 639px) {
+    padding: functions.rem(24);
+  }
+
+  h3 {
+    margin-top: 0;
+    font-family: "Space Mono", courier, monospace;
+    font-weight: normal;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: functions.rem(48);
+    list-style: none;
+
+    @media (max-width: 639px) {
+      columns: 1;
+    }
+  }
+
+  li {
+    break-inside: avoid;
+    padding: functions.rem(6) 0;
+    border-bottom: 1px solid var(--gray-200);
+
+    &::before {
+      content: "—";
+      margin-right: functions.rem(8);
+      color: var(--gray-300);
+    }
+  }
+}
+
+.infoBlock {
+  border-left: 3px solid var(--dark-color);
+  padding: functions.rem(24) functions.rem(32);
+  margin: functions.rem(48) 0;
+
+  h2 {
+    margin-top: 0;
+    font-size: functions.fluid(18, 24);
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

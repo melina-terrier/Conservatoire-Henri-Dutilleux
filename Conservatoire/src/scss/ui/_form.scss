@@ -1,0 +1,181 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+// CF7 form
+.wpcf7 {
+  background-color: var(--gray-100);
+  padding: functions.rem(50) functions.rem(24);
+
+  @media (min-width: 640px) {
+    padding: functions.rem(80) functions.rem(48);
+  }
+
+  form {
+    max-width: functions.rem(600);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  input,
+  select {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: functions.rem(10) 0;
+    width: 100%;
+  }
+
+  textarea {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: functions.rem(10) 0;
+    width: 100%;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.6;
+
+    &:focus {
+      border-bottom-color: var(--dark-color);
+    }
+  }
+
+  label {
+    color: var(--gray-300);
+    margin-top: functions.rem(40);
+    display: block;
+  }
+
+  ::-webkit-datetime-edit {
+    color: var(--gray-300);
+  }
+
+  ::-webkit-calendar-picker-indicator {
+    opacity: 0.2;
+  }
+
+  button,
+  input[type="submit"] {
+    margin-top: functions.rem(40);
+  }
+
+  input[type="submit"] {
+    @include mixins.caption-text;
+
+    text-decoration: none;
+    cursor: pointer;
+    padding: functions.rem(16) functions.rem(40);
+    border: 1px solid var(--dark-color);
+    color: var(--light-color);
+    background: var(--dark-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background: transparent;
+      color: var(--dark-color);
+    }
+  }
+
+  // Mention RGPD discrète sous les champs, au-dessus du bouton submit
+  .formMention {
+    margin-top: functions.rem(40);
+    margin-bottom: 0;
+    font-size: functions.fluid(11, 13);
+    line-height: 1.5;
+    color: var(--gray-300);
+
+    a {
+      color: var(--dark-color);
+      text-decoration: underline;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--vermillion-dark);
+      }
+    }
+  }
+}
+
+/* ------------------------------------*\
+  # CHECKBOX ACCEPTANCE (CF7 / RGPD)
+\*------------------------------------ */
+
+.wpcf7-acceptance {
+  display: block;
+  margin-top: functions.rem(24);
+  margin-bottom: functions.rem(24);
+
+  .wpcf7-list-item {
+    margin: 0;
+  }
+
+  label {
+    display: flex;
+    align-items: flex-start;
+    gap: functions.rem(12); // Espace régulier entre la case et le texte
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] {
+    // 1. Reset du style natif du navigateur
+    appearance: none;
+    background-color: transparent;
+    margin: functions.rem(4) 0 0 0; // Léger ajustement pour l'aligner avec la première ligne du texte
+    font: inherit;
+    color: currentcolor;
+
+    // 2. Dimensions et bordures
+    width: functions.rem(24);
+    height: functions.rem(24);
+    border: 2px solid var(--violet, #5c2e91); // Remplacer par votre variable de couleur
+    border-radius: functions.rem(4);
+
+    // 3. Préparation pour centrer la coche
+    display: grid;
+    place-content: center;
+    flex-shrink: 0; // Empêche la case de s'écraser si le texte RGPD est long
+    transition: all 0.2s ease-in-out;
+
+    // 4. Dessin de la coche en SVG (via clip-path)
+    &::before {
+      content: "";
+      width: functions.rem(12);
+      height: functions.rem(12);
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      background-color: var(--white, #fff);
+
+      // Forme d'une coche de validation (V)
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    // 5. État : Coché
+    &:checked {
+      background-color: var(--violet, #5c2e91);
+      border-color: var(--violet, #5c2e91);
+
+      &::before {
+        transform: scale(1);
+      }
+    }
+
+    // 6. Accessibilité (Focus trap / navigation clavier)
+    &:focus-visible {
+      outline: 2px solid var(--violet, #5c2e91);
+      outline-offset: 2px;
+    }
+  }
+
+  // Style du texte d'acceptation RGPD
+  .wpcf7-list-item-label {
+    font-size: functions.rem(14);
+    line-height: 1.5;
+    color: var(--text-color, #333);
+  }
+}

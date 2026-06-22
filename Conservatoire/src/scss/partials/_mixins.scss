@@ -1,0 +1,63 @@
+@use "functions";
+
+// ─── Mixins, placeholders et fonctions Sass partagés ──────────────────────────
+// Centralisés ici pour éviter les duplications entre layout/, ui/, components/
+// et pages/.
+
+// Largeur d'une colonne de grille (formule reprise dans _mainColumn et _single
+// pour les max-width "flush" à la grille de 12 colonnes).
+@function column-width($cols, $total: 12, $gutter: 48px, $max: 1248px) {
+  @return calc((#{$max} - #{$gutter} * (#{$total} - 1)) / #{$total} * #{$cols} + #{$gutter} * (#{$cols} - 1));
+}
+
+// Typo "caption" : uppercase, espacée, taille fluide — labels de petite taille
+// (subTitle hero, h2 contactInfos, th tables, tags discipline…).
+// Paramètre `$bold` : passer `false` quand l'appelant impose son propre
+// font-weight (ex: `_contact.scss` qui veut normal).
+@mixin caption-text($bold: true) {
+  text-transform: uppercase;
+  letter-spacing: functions.rem(1);
+  font-size: functions.fluid(11, 13);
+
+  @if $bold {
+    font-weight: bold;
+  }
+}
+
+// Lien souligné gris → noir au hover. Utilisé dans mainColumn, contact, legal.
+%underline-link {
+  text-decoration: none;
+  color: var(--dark-color);
+  border-bottom: 1px solid var(--gray-300);
+  transition: border-color .3s;
+
+  &:hover {
+    border-bottom-color: var(--dark-color);
+  }
+}
+
+// Tableau de données éditorial (RGPD, cycles d'enseignement, etc.).
+// Pose le squelette commun ; les particularités (tbody th, last-child borderless,
+// mobile stacking) restent à la charge du sélecteur appelant.
+@mixin data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: functions.fluid(11, 13);
+
+  thead tr {
+    border-bottom: 2px solid var(--dark-color);
+  }
+
+  thead th {
+    @include caption-text;
+
+    text-align: left;
+    padding: functions.rem(8) functions.rem(16) functions.rem(8) 0;
+  }
+
+  td {
+    padding: functions.rem(12) functions.rem(16) functions.rem(12) 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gray-200);
+  }
+}

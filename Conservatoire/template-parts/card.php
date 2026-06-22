@@ -1,14 +1,5 @@
 <?php
-  $date = get_field_object('event_date');
-  $date_formatted = '';
-  if ( $date && ! empty( $date['value'] ) ) {
-    $timestamp = DateTime::createFromFormat( 'Y-m-d H:i:s', $date['value'] )
-              ?: DateTime::createFromFormat( 'd/m/Y G:i', $date['value'] );
-    if ( $timestamp ) {
-      $date_format = get_option( 'date_format' ) . ' à ' . get_option( 'time_format' );
-      $date_formatted = wp_date( $date_format, $timestamp->getTimestamp() );
-    }
-  }
+  $date_formatted = crdtheme_format_event_date();
 
   $heading_tag = isset( $args['heading'] ) && in_array( $args['heading'], array( 'h2', 'h3', 'h4' ), true )
     ? $args['heading']
@@ -35,7 +26,7 @@
     <?php if( has_excerpt() ): ?>
       <p class="card__excerpt"><?php echo wp_trim_words( get_the_excerpt(), 15, '...' ); ?></p>
     <?php endif; ?>
-    <a class="card__link morelink" href="<?php the_permalink(); ?>">
+    <a class="card__link morelink" href="<?php the_permalink(); ?>" aria-label="Plus d'info sur <?php the_title_attribute(); ?>">
       Plus d'info
     </a>
   </div>

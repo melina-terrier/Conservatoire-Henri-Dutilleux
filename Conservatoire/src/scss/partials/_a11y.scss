@@ -1,0 +1,50 @@
+@use "functions";
+
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  &:focus,
+  &:focus-visible {
+    position: fixed;
+    left: functions.rem(16);
+    top: functions.rem(16);
+    width: auto;
+    height: auto;
+    z-index: 99999;
+    padding: functions.rem(12) functions.rem(20);
+    background: var(--dark-color);
+    color: var(--light-color);
+    text-decoration: none;
+    font-weight: bold;
+    outline: 2px solid currentcolor;
+    outline-offset: 2px;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--vermillion-dark);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+// Respect du choix utilisateur de mouvement réduit (RGAA 13.8)
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

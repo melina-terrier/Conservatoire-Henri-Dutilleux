@@ -1,29 +1,48 @@
 # Environnement
 .env
 
-# macOS
+# macOS / Windows
 .DS_Store
 Thumbs.db
+
+# Éditeurs / IDE
+.idea/
+.vscode/
 
 # Node
 node_modules/
 npm-debug.log*
 
-# Sass compilé (généré depuis src/scss/)
+# Sass compilé (généré depuis Conservatoire/src/scss/ via `npm run build:css`)
 Conservatoire/style.css
 Conservatoire/style.css.map
+
+# JS minifiés (générés par `npm run build:js`)
+Conservatoire/dist/
 
 # Docker volumes (données locales)
 db_data/
 wp_data/
+
+# Documentation interne / audits (non versionnée)
+docs/
+todo.md
+
+# Composer
+vendor/
+
+# Maquettes HTML statiques
+html/
 
 # Divers
 *.log
 *.cache
 *.tmp
 *.bak
-vendor/
-html/
 
 # Backups WPVivid (à ne jamais committer)
 *_wpvivid-*_backup_all.zip
+
+# PHPUnit cache
+.phpunit.cache/
+.phpunit.result.cache

@@ -1,0 +1,25 @@
+{
+    "name": "melinaterrier/conservatoire-theme",
+    "description": "Thème WordPress Conservatoire Henri Dutilleux — projet d'exercice pédagogique",
+    "type": "wordpress-theme",
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Mélina Terrier",
+            "email": "melina.terrier@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^6.9"
+    },
+    "scripts": {
+        "test:lint": "find Conservatoire -name '*.php' -not -path '*/dist/*' -print0 | xargs -0 -n1 php -l"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}

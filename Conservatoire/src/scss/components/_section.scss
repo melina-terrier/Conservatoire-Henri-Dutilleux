@@ -1,0 +1,63 @@
+@use "../partials/functions";
+
+// Section de la home
+.section {
+  position: relative;
+
+  &.-bg {
+    padding-top: functions.rem(160);
+    padding-bottom: functions.rem(160);
+  }
+}
+
+.section__header {
+  @media (min-width: 960px) {
+    grid-column: 3 / span 6;
+
+    &.-full {
+      grid-column: 3 / span 10;
+    }
+  }
+
+  &.-inverse {
+    color: var(--light-color);
+  }
+}
+
+.section__title {
+  font-size: functions.fluid(36, 64);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.section__intro {
+  font-size: functions.fluid(22, 28);
+  line-height: 1.5;
+}
+
+.section__link {
+  @media (min-width: 960px) {
+    grid-column: 9 / span 4;
+    justify-self: end;
+    align-self: flex-start;
+  }
+}
+
+.section__img {
+  // `!important` requis : le div porte aussi la classe `.duotone` qui
+  // déclare `position: relative` et est importée APRÈS dans style.scss.
+  // À spécificité égale (1 classe), la dernière déclaration gagne — d'où
+  // l'override forcé. Le cadrage de l'<img> enfant est géré par `.duotone img`.
+  position: absolute !important;
+  inset: 0;
+  z-index: -1;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: var(--violet);
+    opacity: 0.5;
+  }
+}

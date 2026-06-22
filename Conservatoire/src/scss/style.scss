@@ -1,0 +1,49 @@
+/*!
+Theme Name: Conservatoire
+Description: Thème du Conservatoire de Belfort. Dépendances requises : Advanced Custom Fields PRO (champs, options pages, flexible_content, gallery) + Contact Form 7.
+Author: Mélina TERRIER
+Version: 1.0.0
+Author URI: https://melina-terrier.fr
+Requires Plugins: contact-form-7
+*/
+
+// ─── Vendor ────────────────────────────────────────────────────────────────
+@use 'vendor/normalize';
+@use 'vendor/flickity';
+
+// ─── Partials ──────────────────────────────────────────────────────────────
+@use 'partials/functions';
+@use 'partials/mixins';
+@use 'partials/colors';
+@use 'partials/fonts';
+@use 'partials/globals';
+@use 'partials/a11y';
+
+// ─── Layout ────────────────────────────────────────────────────────────────
+@use 'layout/grid';
+@use 'layout/mainColumn';
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/menu';
+
+// ─── UI ────────────────────────────────────────────────────────────────────
+@use 'ui/btn';
+@use 'ui/form';
+@use 'ui/pagination';
+@use 'ui/search';
+
+// ─── Components ────────────────────────────────────────────────────────────
+@use 'components/hero';
+@use 'components/section';
+@use 'components/card';
+@use 'components/crd';
+@use 'components/carousel';
+@use 'components/duotone';
+@use 'components/single';
+
+// ─── Pages ─────────────────────────────────────────────────────────────────
+@use 'pages/contact';
+@use 'pages/enseignements';
+@use 'pages/legal';
+@use 'pages/searchResult';
+@use 'pages/sitemap';

@@ -1,0 +1,158 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+.hero {
+  position: relative;
+
+  &__header {
+    grid-row: 1 / span 1;
+    grid-column: 1;
+    z-index: 1;
+    align-self: flex-end;
+    color: var(--light-color);
+
+    @media (min-width: 640px) {
+      grid-column: 1 / span 9;
+    }
+  }
+
+  &__subTitle {
+    @include mixins.caption-text;
+  }
+
+  &__img {
+    // `!important` requis : le div porte aussi la classe `.duotone` qui
+    // déclare `position: relative` et est importée APRÈS dans style.scss.
+    // À spécificité égale (1 classe), la dernière déclaration gagne — d'où
+    // l'override forcé. Le cadrage de l'<img> enfant vient de `.duotone img`.
+    position: absolute !important;
+    inset: 0;
+    z-index: -2;
+  }
+
+  &__patterns {
+    opacity: 0.4;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: start;
+
+    // En mobile, le motif de notes occupe trop d'espace et passe par-dessus
+    // le titre (titre en bas, motif descend du haut). On réduit l'opacité.
+    @media (max-width: 639px) {
+      opacity: 0.15;
+    }
+
+    svg {
+      margin-right: -5vw;
+      margin-top: 15vh;
+      width: 80vmax;
+
+      .curveLines path {
+        stroke: var(--vermillion);
+        fill: none;
+        stroke-linejoin: round;
+        stroke-width: 24px;
+      }
+
+      @media (min-width: 640px) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__chapo {
+    position: relative;
+    background-color: var(--light-color);
+    grid-row: 2 / span 1;
+    grid-column: 1;
+    padding: 0 functions.rem(24);
+    margin-left: functions.rem(-24);
+    margin-right: functions.rem(-24);
+
+    @media (min-width: 640px) {
+      margin: 0;
+      padding: 0;
+      grid-column: 1 / span 9;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin-left: -100%;
+        background-color: var(--light-color);
+      }
+    }
+  }
+}
+
+
+.chapo {
+  align-items: center;
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &.-col3 {
+    // Mobile : gap minimal + `minmax(0, 1fr)` empêche les cellules grid de
+    // "pousser" au-delà de leur fraction quand un contenu interne est large.
+    // Sans ça, à 375 px, "Théâtre" + picto 48px sortait de la 3e colonne.
+    grid-gap: functions.rem(8);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    @media (min-width: 640px) {
+      grid-gap: functions.rem(24);
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 640px) {
+    grid-gap: functions.rem(48);
+  }
+
+  &__title {
+    font-size: functions.fluid(22, 28);
+    line-height: 1.5;
+    font-family: "Space Mono", courier, monospace;
+    font-weight: normal;
+    min-width: 0; // anti grid-overflow sur cellule contenant texte long
+
+    @media (min-width: 960px) {
+      font-size: functions.fluid(28, 32);
+      line-height: 1.1;
+    }
+  }
+
+  &__link {
+    color: var(--dark-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    word-break: break-word; // "Théâtre" peut casser si la cellule est étroite
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+    }
+
+    img {
+      margin-right: functions.rem(10);
+      flex-shrink: 0; // garde le picto à 48 px même si la cellule rétrécit
+    }
+  }
+
+  &__text {
+    font-size: functions.fluid(22, 28);
+    line-height: 1.5;
+
+    @media (min-width: 640px) {
+      margin-right: functions.rem(48);
+    }
+  }
+}

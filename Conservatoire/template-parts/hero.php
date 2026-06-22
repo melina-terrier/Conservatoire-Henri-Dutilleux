@@ -28,15 +28,15 @@ $chapo    = '';
 $hero_img_attrs = array( 'loading' => 'eager', 'fetchpriority' => 'high' );
 
 $default_img = ( is_array($hero) && !empty($hero['img_header_default']) )
-    ? wp_get_attachment_image( $hero['img_header_default'], 'full', false, $hero_img_attrs )
+    ? wp_get_attachment_image( $hero['img_header_default'], 'large', false, $hero_img_attrs )
     : '';
 
 if ( is_post_type_archive() || is_tax() || is_search() ) {
     $img = $img_archive
-        ? wp_get_attachment_image( $img_archive, 'full', false, $hero_img_attrs )
+        ? wp_get_attachment_image( $img_archive, 'large', false, $hero_img_attrs )
         : $default_img;
 } elseif ( is_front_page() || is_singular() || is_page() ) {
-    $img = get_the_post_thumbnail( $post_id, 'full', $hero_img_attrs ) ?: $default_img;
+    $img = get_the_post_thumbnail( $post_id, 'large', $hero_img_attrs ) ?: $default_img;
 } else {
     $img = $default_img;
 }
@@ -80,28 +80,33 @@ if ( is_post_type_archive() ) {
         : null;
     $has_disciplines = $show_disciplines_menu && ! empty( $disciplines_items );
   ?>
-  <div class="hero__chapo chapo <?php echo $has_disciplines ? '-col3' : ''; ?>">
-    <?php if ( $has_disciplines ) :
-        foreach ( $disciplines_items as $item ) :
-            $item_menu_svg  = $item['menu_item_icon']  ?? null;
-            $item_menu_txt  = $item['menu_item_label'] ?? '';
-            $item_menu_link = $item['menu_item_url']   ?? '#';
-            ?>
-            <h2 class="chapo__title">
-              <a class="chapo__link" href="<?php echo esc_url($item_menu_link); ?>">
-                <?php if ( $item_menu_svg && isset($item_menu_svg['url']) ): ?>
-                  <img class="styleSvg" src="<?php echo esc_url($item_menu_svg['url']); ?>" alt="" aria-hidden="true" width="48" height="48">
-                <?php endif; ?>
-                <?php echo esc_html($item_menu_txt); ?>
-              </a>
-            </h2>
-        <?php endforeach;
-    else :
-        if ( $chapo ) echo '<p class="chapo__text">' . esc_html($chapo) . '</p>';
-    endif; ?>
-  </div>
+  <?php if ( $has_disciplines ) : ?>
+    <ul class="hero__chapo chapo -col3" role="list" aria-label="Disciplines enseignées">
+      <?php foreach ( $disciplines_items as $item ) :
+        $item_menu_svg  = $item['menu_item_icon']  ?? null;
+        $item_menu_txt  = $item['menu_item_label'] ?? '';
+        $item_menu_link = $item['menu_item_url']   ?? '#';
+        ?>
+        <li class="chapo__title">
+          <a class="chapo__link" href="<?php echo esc_url($item_menu_link); ?>">
+            <?php if ( $item_menu_svg && isset($item_menu_svg['url']) ): ?>
+              <img class="styleSvg" src="<?php echo esc_url($item_menu_svg['url']); ?>" alt="" aria-hidden="true" width="48" height="48">
+            <?php endif; ?>
+            <?php echo esc_html($item_menu_txt); ?>
+          </a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php else : ?>
+    <div class="hero__chapo chapo">
+      <?php if ( $chapo ) : ?>
+        <p class="chapo__text"><?php echo esc_html($chapo); ?></p>
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
 
-  <div class="duotone hero__img"><?php echo $img; ?></div>
+  <?php // $img = sortie de wp_get_attachment_image() (HTML core déjà sûr, conserve fetchpriority/loading pour le LCP). ?>
+  <div class="duotone hero__img"><?php echo $img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 
   <?php if ( is_front_page() ) : ?>
     <?php get_template_part( 'template-parts/pattern', null, array( 'wrapper_class' => 'hero__patterns' ) ); ?>

@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Enregistre le Custom Post Type "agenda" représentant les événements
@@ -7,8 +8,6 @@
  * Supporte : title, editor, thumbnail, excerpt, custom-fields (pour ACF).
  * Visible publiquement, archive activée avec slug /agenda/, single via
  * single-agenda.php.
- *
- * @return void
  */
 function crdtheme_register_cpt_agenda() {
 
@@ -20,10 +19,20 @@ function crdtheme_register_cpt_agenda() {
 		'edit_item'          => 'Modifier l\'événement',
 		'new_item'           => 'Nouvel événement',
 		'view_item'          => 'Voir l\'événement',
+		'view_items'         => 'Voir les événements',
 		'search_items'       => 'Rechercher un événement',
 		'not_found'          => 'Aucun événement trouvé',
 		'not_found_in_trash' => 'Aucun événement dans la corbeille',
 		'menu_name'          => 'Agenda',
+		'all_items'          => 'Tous les événements',
+		// Label du lien d'archive (menus WP). Volontairement « Agenda » et non
+		// « Archives » : la rotation auto des events (crdtheme_shift_events_cron)
+		// recycle les events passés vers le futur, il n'existe donc pas d'archive
+		// d'événements révolus. Décision : un seul concept, l'Agenda.
+		'archives'           => 'Agenda',
+		'attributes'         => 'Attributs de l\'événement',
+		'item_published'     => 'Événement publié.',
+		'item_updated'       => 'Événement mis à jour.',
 	);
 
 	$args = array(
@@ -34,7 +43,7 @@ function crdtheme_register_cpt_agenda() {
 		'show_in_menu'       => true,
 		'show_in_rest'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'agenda' ),
+		'rewrite'            => array( 'slug' => 'agenda', 'with_front' => false ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
@@ -48,11 +57,6 @@ function crdtheme_register_cpt_agenda() {
 
 /**
  * Enregistre la taxonomie hiérarchique "cat_agenda" sur le CPT agenda.
- *
- * Permet de classer les événements par catégorie (musique classique, jazz,
- * danse, théâtre, etc.). Hiérarchique → fonctionne comme les catégories WP.
- *
- * @return void
  */
 function crdtheme_register_tax_cat_agenda() {
 
@@ -61,6 +65,8 @@ function crdtheme_register_tax_cat_agenda() {
 		'singular_name'     => 'Catégorie',
 		'search_items'      => 'Rechercher une catégorie',
 		'all_items'         => 'Toutes les catégories',
+		'parent_item'       => 'Catégorie parente',
+		'parent_item_colon' => 'Catégorie parente :',
 		'edit_item'         => 'Modifier la catégorie',
 		'update_item'       => 'Mettre à jour la catégorie',
 		'add_new_item'      => 'Ajouter une catégorie',
@@ -75,7 +81,7 @@ function crdtheme_register_tax_cat_agenda() {
 		'show_ui'           => true,
 		'show_in_rest'      => true,
 		'show_admin_column' => true,
-		'rewrite'           => array( 'slug' => 'categorie-agenda' ),
+		'rewrite'           => array( 'slug' => 'categorie-agenda', 'with_front' => false ),
 	);
 
 	register_taxonomy( 'cat_agenda', array( 'agenda' ), $args );
@@ -83,25 +89,22 @@ function crdtheme_register_tax_cat_agenda() {
 
 /**
  * Enregistre la taxonomie hiérarchique "location" sur le CPT agenda.
- *
- * Permet de classer les événements par lieu (Salle Granit, Auditorium…).
- * Le Conservatoire ayant plusieurs sites, cette taxo permet de filtrer
- * l'agenda par site sur la prod.
- *
- * @return void
  */
 function crdtheme_register_tax_location() {
 
 	$labels = array(
-		'name'              => 'Lieux',
-		'singular_name'     => 'Lieu',
-		'search_items'      => 'Rechercher un lieu',
-		'all_items'         => 'Tous les lieux',
-		'edit_item'         => 'Modifier le lieu',
-		'update_item'       => 'Mettre à jour le lieu',
-		'add_new_item'      => 'Ajouter un lieu',
-		'new_item_name'     => 'Nouveau lieu',
-		'menu_name'         => 'Lieux',
+		'name'                       => 'Lieux',
+		'singular_name'              => 'Lieu',
+		'search_items'               => 'Rechercher un lieu',
+		'popular_items'              => 'Lieux les plus utilisés',
+		'all_items'                  => 'Tous les lieux',
+		'edit_item'                  => 'Modifier le lieu',
+		'update_item'                => 'Mettre à jour le lieu',
+		'add_new_item'               => 'Ajouter un lieu',
+		'new_item_name'              => 'Nouveau lieu',
+		'separate_items_with_commas' => 'Séparer les lieux par une virgule',
+		'add_or_remove_items'        => 'Ajouter ou retirer des lieux',
+		'menu_name'                  => 'Lieux',
 	);
 
 	$args = array(
@@ -111,7 +114,7 @@ function crdtheme_register_tax_location() {
 		'show_ui'           => true,
 		'show_in_rest'      => true,
 		'show_admin_column' => true,
-		'rewrite'           => array( 'slug' => 'lieu' ),
+		'rewrite'           => array( 'slug' => 'lieu', 'with_front' => false ),
 	);
 
 	register_taxonomy( 'location', array( 'agenda' ), $args );

@@ -1,0 +1,43 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+.carousel {
+  padding-top: functions.rem(48);
+  padding-bottom: functions.rem(48);
+  width: 100vw;
+  margin-left: functions.rem(-24);
+
+  // Padding mobile réduit : sur petit écran, le double 48px haut/bas crée
+  // une zone vide visuelle hors-de-proportion avec la hauteur réelle des slides.
+  @media (max-width: 639px) {
+    padding-top: functions.rem(24);
+    padding-bottom: functions.rem(24);
+  }
+
+  @media (min-width: 640px) {
+    margin-left: calc(0px - (100vw - mixins.column-width(6)) / 2);
+  }
+
+  // Repositionne les flèches Flickity sur mobile : par défaut elles sont
+  // ancrées à `left: calc(50% - 300px)` (cf. _flickity.scss), ce qui les
+  // tronque hors viewport sur écrans < 600px. On les colle aux bords.
+  @media (max-width: 639px) {
+    .flickity-prev-next-button.previous {
+      left: functions.rem(8);
+    }
+
+    .flickity-prev-next-button.next {
+      left: auto;
+      right: functions.rem(8);
+    }
+  }
+}
+
+.carousel__item {
+  width: 66%;
+  margin-right: functions.rem(24);
+
+  @media (min-width: 640px) {
+    width: 33%;
+  }
+}

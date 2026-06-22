@@ -1,0 +1,71 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+// Pages légales
+.legalContent {
+  @media (min-width: 640px) {
+    padding: functions.rem(80) 0;
+  }
+
+  h2 {
+    border-top: 2px solid var(--dark-color);
+    padding-top: functions.rem(16);
+    margin-top: functions.rem(56);
+    font-family: "Space Mono", courier, monospace;
+    font-weight: normal;
+    font-size: functions.fluid(16, 20);
+
+    &:first-of-type {
+      margin-top: 0;
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+
+  p,
+  ul,
+  table {
+    margin-bottom: functions.rem(24);
+  }
+
+  ul {
+    padding-left: 0;
+    list-style: none;
+
+    li {
+      padding: functions.rem(8) 0;
+      border-bottom: 1px solid var(--gray-200);
+
+      &::before {
+        content: "—";
+        margin-right: functions.rem(10);
+        color: var(--gray-300);
+      }
+    }
+  }
+
+  a {
+    @extend %underline-link;
+  }
+
+  em {
+    color: var(--gray-300);
+    font-style: normal;
+    font-size: functions.fluid(11, 13);
+  }
+}
+
+// Tableau RGPD
+.legalTable {
+  margin: 0;
+
+  table {
+    @include mixins.data-table;
+
+    margin: functions.rem(24) 0 functions.rem(40);
+
+    td {
+      line-height: 1.5;
+    }
+  }
+}

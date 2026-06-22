@@ -1,0 +1,11 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+/**
+ * Icône flèche utilisée dans les boutons CTA de la front-page.
+ * Décorative — aria-hidden activé par défaut puisque le bouton parent
+ * porte déjà son intitulé textuel.
+ */
+?>
+<svg class="btn__arrow" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <path d="M23.354 12.354a.5.5 0 000-.708l-3.182-3.182a.5.5 0 10-.707.708L22.293 12l-2.828 2.828a.5.5 0 10.707.708l3.182-3.182zM0 12.5h23v-1H0v1z" fill="#1C1514" />
+</svg>

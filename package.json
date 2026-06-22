@@ -5,11 +5,15 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"watch": "sass --watch --no-charset ./src/scss/style.scss ./Conservatoire/style.css"
+		"watch": "sass --watch --no-charset ./Conservatoire/src/scss/style.scss ./Conservatoire/style.css",
+		"build:css": "sass --no-charset --style=compressed --no-source-map ./Conservatoire/src/scss/style.scss ./Conservatoire/style.css",
+		"build:js": "terser ./Conservatoire/src/js/vendors-core.js -o ./Conservatoire/dist/js/vendors-core.min.js -c -m && terser ./Conservatoire/src/js/vendors-anim.js -o ./Conservatoire/dist/js/vendors-anim.min.js -c -m && terser ./Conservatoire/src/js/script.js -o ./Conservatoire/dist/js/script.min.js -c -m",
+		"build": "npm run build:css && npm run build:js"
 	},
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"sass": "^1.97.3"
+		"sass": "^1.97.3",
+		"terser": "^5.36.0"
 	}
 }

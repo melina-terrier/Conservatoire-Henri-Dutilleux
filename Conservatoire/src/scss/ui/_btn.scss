@@ -1,0 +1,132 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+.btn {
+  @include mixins.caption-text;
+
+  text-decoration: none;
+  cursor: pointer;
+  padding: functions.rem(16) functions.rem(24);
+  border: 1px solid var(--vermillion);
+  color: var(--dark-color);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+
+  @media (min-width: 640px) {
+    padding: functions.rem(24) functions.rem(32);
+  }
+
+  &:hover {
+    box-shadow: inset 0 0 0 8px var(--vermillion);
+  }
+
+  &.-outlined {
+    border-color: var(--light-color);
+    color: var(--light-color);
+
+    &:hover {
+      box-shadow: inset 0 0 0 8px var(--light-color);
+    }
+
+    .btn__arrow path {
+      fill: var(--light-color);
+    }
+  }
+
+  &.-dark {
+    border-color: var(--dark-color);
+    background-color: var(--dark-color);
+    color: var(--light-color);
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  &__arrow {
+    margin-right: functions.rem(16);
+  }
+}
+
+// Lien "plus d'infos"
+.morelink {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--dark-color);
+  position: relative;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-color);
+  }
+
+  &::before {
+    transform: scaleX(1);
+    transform-origin: right;
+    transition: all .3s ease-in-out;
+  }
+
+  &::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all .3s ease-in-out .1s;
+  }
+
+  &:hover::before {
+    transform: scaleX(0);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+
+  // Cible tactile ≥ 48px (WCAG 2.5.5 niveau AAA, recommandation Material/Apple HIG).
+  // `.morelink` fait nativement ~24px de haut (font-size 13-15px) — on ajoute
+  // donc 12px de padding haut/bas pour atteindre 48px de zone cliquable.
+  // L'underline (`::before`/`::after`) est remonté du même montant pour rester
+  // collé au baseline du texte.
+  @media (max-width: 639px) {
+    padding-block: functions.rem(12);
+
+    &::before,
+    &::after {
+      bottom: functions.rem(12);
+    }
+  }
+}
+
+// Téléchargement de fichiers
+.wp-block-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: functions.rem(10);
+  padding-top: functions.rem(12);
+  padding-bottom: functions.rem(12);
+  border-bottom: 1px solid var(--gray-200);
+  font-size: functions.fluid(11, 13);
+}
+
+.wp-block-file a:first-child {
+  @include mixins.caption-text;
+
+  text-decoration: none;
+  color: var(--dark-color);
+}
+
+.wp-block-file__button {
+  text-decoration: none;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  padding: functions.rem(4) functions.rem(20);
+  border-radius: functions.rem(40);
+}

@@ -5,6 +5,7 @@ get_header();
 if ( have_posts() ) :
 	while ( have_posts() ) :
 		the_post();
+		echo crdtheme_event_schema_jsonld(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — JSON-LD encodé par wp_json_encode + wrap <script>
 		?>
 
 		<div class="grid">
@@ -17,23 +18,15 @@ if ( have_posts() ) :
 				<?php the_title( '<h1 class="single__title">', '</h1>' ); ?>
 
 				<?php
-				$date = get_field_object('event_date');
-				$date_formatted = '';
-				if ( $date && ! empty( $date['value'] ) ) {
-					$timestamp = DateTime::createFromFormat( 'Y-m-d H:i:s', $date['value'] )
-					          ?: DateTime::createFromFormat( 'd/m/Y G:i', $date['value'] );
-					if ( $timestamp ) {
-						$date_format = get_option( 'date_format' ) . ' à ' . get_option( 'time_format' );
-						$date_formatted = wp_date( $date_format, $timestamp->getTimestamp() );
-					}
-				}
+				$date = function_exists( 'get_field_object' ) ? get_field_object( 'event_date' ) : false;
+				$date_formatted = crdtheme_format_event_date();
 				?>
 
 				<ul class="infos">
-					<?php if ( $date && ( $date_formatted || $date['value'] ) ) : ?>
+					<?php if ( $date_formatted && is_array( $date ) ) : ?>
 					<li class="infos__row">
 						<span class="infos__label"><?php echo esc_html( $date['label'] ); ?></span>
-						<span class="infos__value"><?php echo esc_html( $date_formatted ?: $date['value'] ); ?></span>
+						<span class="infos__value"><?php echo esc_html( $date_formatted ); ?></span>
 					</li>
 					<?php endif; ?>
 				<?php
@@ -107,7 +100,7 @@ if ( have_posts() ) :
 			<?php
 			$images = get_field( 'event_gallery' );
 			if ( $images ) : ?>
-			<div class="carousel">
+			<div class="carousel" role="group" aria-roledescription="carrousel" aria-label="Galerie photos de l'événement">
 				<?php foreach ( $images as $image ) : ?>
 					<div class="carousel__item">
 						<?php echo wp_get_attachment_image( $image['ID'], 'large' ); ?>
@@ -118,20 +111,9 @@ if ( have_posts() ) :
 		</div>
 
 		<?php
-		$related = new WP_Query( array(
-			'post_type'      => 'agenda',
-			'posts_per_page' => 3,
-			'post__not_in'   => array( get_the_ID() ),
-			'meta_key'       => 'event_date',
-			'orderby'        => 'meta_value',
-			'order'          => 'ASC',
-			'meta_query'     => array(
-				array(
-					'key'     => 'event_date',
-					'value'   => current_time( 'Y-m-d H:i:s' ),
-					'compare' => '>=',
-				),
-			),
+		$related = crdtheme_get_upcoming_events( array(
+			'limit'   => 3,
+			'exclude' => array( get_the_ID() ),
 		) );
 
 		if ( $related->have_posts() ) : ?>

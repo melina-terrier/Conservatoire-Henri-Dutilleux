@@ -1,0 +1,38 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+.mainColumn {
+  margin: functions.rem(96) 0;
+  padding-left: functions.rem(24);
+  padding-right: functions.rem(24);
+
+  @media (min-width: 640px) {
+    box-sizing: content-box;
+    max-width: mixins.column-width(6);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Scope volontairement restreint aux liens éditoriaux (paragraphes, listes,
+  // adresses) — sinon `%underline-link` cascade trop large sur `.btnBack`,
+  // `.searchResult__link`, `.wp-block-file a` etc. qui doivent rester non-soulignés.
+  :is(p, li, address) a {
+    @extend %underline-link;
+  }
+
+  figure {
+    margin: 0;
+
+    @media (min-width: 960px) {
+      margin-left: calc(0px - (calc((1248px - 48px * (12 - 1)) / 12) + 48px));
+      margin-right: calc(0px - (calc((1248px - 48px * (12 - 1)) / 12) + 48px));
+      margin-top: functions.rem(48);
+      margin-bottom: functions.rem(48);
+    }
+  }
+
+  figcaption {
+    font-size: functions.fluid(11, 13);
+    color: var(--gray-300);
+  }
+}

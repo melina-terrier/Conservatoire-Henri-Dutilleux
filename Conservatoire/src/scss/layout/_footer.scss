@@ -1,0 +1,113 @@
+@use "../partials/functions";
+
+.footer {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  padding-top: functions.rem(64);
+  padding-bottom: functions.rem(64);
+
+  a {
+    color: var(--light-color);
+    text-decoration: none;
+  }
+
+  &__logo {
+    @media (min-width: 640px) {
+      grid-column: 1 / span 4;
+    }
+  }
+
+  &__menu,
+  &__gb {
+    margin-top: functions.rem(24);
+
+    @media (min-width: 640px) {
+      grid-column: 7 / span 3;
+      margin-top: 0;
+    }
+  }
+
+  &__contact,
+  &__social {
+    margin-top: functions.rem(24);
+
+    @media (min-width: 640px) {
+      grid-column: 10 / span 3;
+      margin-top: 0;
+    }
+  }
+
+  &__social {
+    grid-row: 2 / span 1;
+  }
+
+  &__gb {
+    grid-row: 2 / span 1;
+
+    img {
+      width: functions.rem(100);
+
+      @media (min-width: 640px) {
+        width: functions.rem(200);
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    font-size: functions.fluid(22, 28);
+    line-height: 1.5;
+
+    li {
+      margin-right: functions.rem(20);
+    }
+
+    svg {
+      width: functions.rem(24);
+      height: functions.rem(24);
+      display: block;
+    }
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: functions.rem(16);
+    font-size: 1.17em;
+    font-weight: bold;
+  }
+
+  &__address {
+    font-style: normal;
+  }
+
+  &__copyright {
+    grid-column: 1 / -1;
+    display: block;
+    text-align: center;
+    padding: functions.rem(16) 0;
+    font-size: 0.8em;
+    color: #fafafa;
+    opacity: 0.6;
+    border-top: 1px solid rgba(250, 250, 250, 0.2);
+  }
+
+  .listUnstyled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  // Cibles tactiles ≥ 48px (WCAG 2.5.5 AAA). Les liens du footer font ~17px
+  // empilés serrés — padding-block 16px porte la zone cliquable à ~49px sans
+  // toucher au texte, espacement vertical pour éviter le mis-tap entre items.
+  @media (max-width: 639px) {
+    a {
+      display: inline-block;
+      padding-block: functions.rem(16);
+    }
+
+    li {
+      margin-bottom: functions.rem(8);
+    }
+  }
+}

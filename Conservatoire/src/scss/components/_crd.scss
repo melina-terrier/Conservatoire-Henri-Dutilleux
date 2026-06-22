@@ -1,0 +1,125 @@
+@use "../partials/functions";
+@use "../partials/mixins";
+
+// Home -> partie avec l'image et les stats
+.crd {
+  margin: functions.rem(80) 0;
+
+  @media (min-width: 640px) {
+    margin: functions.rem(200) 0;
+  }
+
+  &::before {
+    content: "";
+    grid-column: 1 / span 7;
+    grid-row: 2 / span 1;
+    margin-bottom: functions.rem(-40);
+    margin-right: functions.rem(-40);
+    z-index: -1;
+    background-color: var(--vermillion);
+  }
+
+  &__img {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 100% 100%;
+    }
+
+    @media (min-width: 640px) {
+      grid-column: 1 / span 7;
+      grid-row: 1 / span 2;
+    }
+
+    @media (min-width: 960px) {
+      margin-left: functions.rem(-24);
+    }
+
+    @media (min-width: 1296px) {
+      margin-left: calc((1248px - 100vw) / 2);
+    }
+  }
+
+  &__header {
+    grid-column: 6 / span 5;
+    grid-row: 1 / span 1;
+    z-index: 2;
+    padding: functions.rem(80) 0 functions.rem(104);
+  }
+
+  &__title {
+    font-size: functions.fluid(22, 28);
+    line-height: 1.5;
+    font-family: "Space Mono", courier, monospace;
+    font-style: italic;
+
+    strong {
+      font-weight: normal;
+      position: relative;
+      display: inline-block;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: functions.rem(15);
+        background-color: var(--vermillion);
+      }
+    }
+  }
+
+  &__bg {
+    background: var(--light-color) url("src/img/pattern.svg") no-repeat;
+    background-position: center right;
+    grid-column: 5 / span 7;
+    grid-row: 1 / span 1;
+    z-index: 1;
+  }
+
+  &__stats {
+    // En mobile la grille parente est en 1 colonne, le `grid-column: 9 / span 4`
+    // n'a aucun sens — on prend toute la largeur.
+    grid-column: 1 / -1;
+    display: grid;
+
+    // Mobile : 2×2 (4 chiffres) avec `minmax(0, 1fr)` pour empêcher le grid
+    // de "pousser" au-delà du conteneur quand un chiffre est long (ex: 1500).
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: functions.rem(24) functions.rem(16);
+    min-width: 0;
+
+    @media (min-width: 640px) {
+      grid-column: 9 / span 4;
+      grid-row: 2 / span 1;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: functions.rem(32);
+    }
+
+    @media (min-width: 960px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: functions.rem(48);
+    }
+
+    .stat {
+      margin: 0;
+      min-width: 0; // anti grid-overflow sur chiffre long
+    }
+
+    .stat__chiffre {
+      font-size: functions.fluid(48, 64);
+      line-height: 1.1;
+      color: var(--vermillion-dark);
+      display: block;
+    }
+
+    .stat__text {
+      @include mixins.caption-text;
+    }
+  }
+}

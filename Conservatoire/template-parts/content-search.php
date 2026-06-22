@@ -9,7 +9,7 @@
 		?>
 	</div>
 	<?php the_title( sprintf( '<h2 class="searchResult__title"><a href="%s" class="searchResult__titleLink" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-	<p class="searchResult__chapo"><?php the_excerpt(); ?></p>
-	<a class="searchResult__link morelink" href="<?php echo esc_url( get_permalink() ); ?>">Plus d'info</a>
+	<p class="searchResult__chapo"><?php echo esc_html( get_the_excerpt() ); ?></p>
+	<a class="searchResult__link morelink" href="<?php echo esc_url( get_permalink() ); ?>" aria-label="Plus d'info sur <?php the_title_attribute(); ?>">Plus d'info</a>
 
 </article>

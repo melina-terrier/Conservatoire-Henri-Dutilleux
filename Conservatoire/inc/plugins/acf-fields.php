@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Enregistrement local des groupes de champs ACF du thème Conservatoire.
@@ -34,7 +35,7 @@ function crdtheme_register_acf_fields() {
           'id' => '',
         ),
         'display_format' => 'd/m/Y G:i',
-        'return_format' => 'd/m/Y G:i',
+        'return_format' => 'Y-m-d H:i:s',
         'first_day' => 1,
         'default_to_current_date' => 0,
         'allow_in_bindings' => 0,
@@ -1209,9 +1210,9 @@ Fermé les jours fériés',
     'location' => array(
       array(
         array(
-          'param' => 'page',
+          'param' => 'page_template',
           'operator' => '==',
-          'value' => '247',
+          'value' => 'page-plan-du-site.php',
         ),
       ),
     ),
