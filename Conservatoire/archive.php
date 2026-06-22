@@ -1,8 +1,6 @@
 <?php
 get_header();
 
-// JSON-LD ItemList des événements de l'archive agenda (aide Google à comprendre
-// la liste ; chaque single porte déjà son schema Event complet).
 if ( is_post_type_archive( 'agenda' ) && have_posts() ) {
 	global $wp_query;
 	$crdtheme_list = array();
